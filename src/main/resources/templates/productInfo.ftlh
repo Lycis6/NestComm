@@ -7,6 +7,9 @@
 </head>
 <body>
 <h>Product info</h> <br><br>
+<#list images as image>
+    <img src="/image/${image.getId()?if_exists}" height="60px" /> <br><br>
+</#list>
   Название товара: ${product.getName()} <br><br>
   Описание объявления: ${product.getDescription()} <br><br>
   Категория товара: ${product.getCategory()} <br><br>

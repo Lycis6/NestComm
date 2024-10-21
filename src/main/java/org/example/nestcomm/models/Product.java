@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "products")
 @Data
@@ -26,4 +29,16 @@ public class Product {
     private String author;
     @Column(name = "category")
     private String category;
+
+    // CascadeType.ALL - удаляет все фотографии связанные с товаром при удалении товара
+    // и добавляет все фотографии при добавления товара, т.е отдельно к репозиторию фотографий обращаться не нужно
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "product")
+    private List<ProductImage> images = new ArrayList<>();
+
+    private Long previewImageId;
+
+    public void addImage(ProductImage image) {
+        image.setProduct(this);
+        this.images.add(image);
+    }
 }
