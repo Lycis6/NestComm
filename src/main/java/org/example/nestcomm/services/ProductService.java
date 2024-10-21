@@ -1,43 +1,41 @@
 package org.example.nestcomm.services;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.example.nestcomm.models.Product;
+import org.example.nestcomm.repositories.ProductRepositoryInt;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 @Service
+@Slf4j
 public class ProductService {
-    private List<Product> products = new ArrayList<>();
-    static private Long ID = 0L;
+    private final ProductRepositoryInt productRepository;
 
-    ProductService()
-    {
-        ID++;
-        products.add(new Product(ID,69999,"PS5", "game desk", "Moscow","Andrey", "Electronics"));
+    @Autowired
+    ProductService(ProductRepositoryInt productRepository) {
+        this.productRepository = productRepository;
     }
 
-    public List<Product> getList(){return products;}
+    public List<Product> getList(){return productRepository.findAll();}
 
     public void saveProduct(Product product){
-        ID++;
-        product.setID(ID);
-        products.add(product);
+        log.info("Saving product: {}", product);
+        productRepository.save(product);
     }
 
     public Product getProductById(Long id){
-        for(int i = 0; i < products.size(); i++){
-            if(Objects.equals(products.get(i).getID(), ID)){
-                return products.get(i);
-            }
+        if(productRepository.findById(id).isEmpty()){
+            return null;
         }
-        return null;
+        return productRepository.findById(id).get();
     }
 
-    public void deleteProduct(Long ID){
-        for(int i = 0; i < products.size(); i++){
-            if(Objects.equals(products.get(i).getID(), ID)){
-                products.remove(i);
-            }
-        }
+    public void deleteProduct(Long id){
+        log.info("Deleting product: {}", id);
+        productRepository.deleteById(id);
     }
 }

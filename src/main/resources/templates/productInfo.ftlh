@@ -6,12 +6,17 @@
   </title>
 </head>
 <body>
-<h>Product info</h>
-  Название товара: ${product.getName()}
-  Описание объявления: ${product.getDescription()}
-  Категория товара: ${product.getCategory()}
-  Цена: ${product.getPrice()}
-  Город: ${product.getCity()}
-  Автор: ${product.getAuthor()}
+<h>Product info</h> <br><br>
+  Название товара: ${product.getName()} <br><br>
+  Описание объявления: ${product.getDescription()} <br><br>
+  Категория товара: ${product.getCategory()} <br><br>
+  Цена: ${product.getPrice()} <br><br>
+  Город: ${product.getCity()} <br><br>
+  Автор: ${product.getAuthor()} <br><br>
+  ID: ${product.getID()} <br><br>
+
+<form action = "/product/delete/${product.getID()}" method="post">
+  <input type = "submit" value = "Удалить товар">
+</form>
 </body>
 </html>
