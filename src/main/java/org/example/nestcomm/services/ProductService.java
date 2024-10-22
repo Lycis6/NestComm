@@ -1,17 +1,14 @@
 package org.example.nestcomm.services;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.nestcomm.models.Product;
-import org.example.nestcomm.models.ProductImage;
+import org.example.nestcomm.models.Image;
 import org.example.nestcomm.repositories.ProductRepositoryInt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 @Slf4j
@@ -26,7 +23,7 @@ public class ProductService {
     public List<Product> getList(){return productRepository.findAll();}
 
     public void saveProduct(Product product, MultipartFile file1, MultipartFile file2, MultipartFile file3) throws IOException {
-        ProductImage image1, image2, image3;
+        Image image1, image2, image3;
         if(!file1.isEmpty()){
             image1 = ToImageEntity(file1);
             image1.setPreviewImage(true);
@@ -44,7 +41,7 @@ public class ProductService {
         Product savedProduct = productRepository.save(product);
         savedProduct.setPreviewImageId(product.getImages().get(0).getId());
         productRepository.save(savedProduct);
-        //productRepository.updateProductByID(savedProduct.getID(),savedProduct);
+
     }
 
     public Product getProductById(Long id){
@@ -59,8 +56,8 @@ public class ProductService {
         productRepository.deleteById(id);
     }
 
-    ProductImage ToImageEntity(MultipartFile file) throws IOException {
-        ProductImage image = new ProductImage();
+    Image ToImageEntity(MultipartFile file) throws IOException {
+        Image image = new Image();
         image.setName(file.getName());
         image.setOriginalFileName(file.getOriginalFilename());
         image.setContentType(file.getContentType());

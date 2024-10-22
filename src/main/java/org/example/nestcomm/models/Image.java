@@ -6,13 +6,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "product_images")
+@Table(name = "images")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductImage {
+public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Long id;
     @Column(name = "name")
     private String name;
@@ -29,5 +30,6 @@ public class ProductImage {
 
     // CascadeType.REFRESH при удалении фотографии просто обновляет связанный с ней товар, не удаляя его
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    @JoinColumn(name = "product_id", nullable = true)
     private Product product;
 }
