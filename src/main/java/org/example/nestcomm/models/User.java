@@ -4,19 +4,17 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-//import org.springframework.security.core.GrantedAuthority;
-//import org.springframework.security.core.userdetails.UserDetails;
+import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "users")
 @Data
-@AllArgsConstructor
-@NoArgsConstructor(force = true)
+@RequiredArgsConstructor
+
 
 public class User  {
     @Id
@@ -36,14 +34,15 @@ public class User  {
     private Image image;
 
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
-    private List<Role> roles;
+//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
+//    private List<Role> roles = new ArrayList<>();
 
     @Column(name = "createdAt", columnDefinition = "DATETIME")
-    final private LocalDateTime createdAt;
+    private LocalDateTime createdAt;
 
-//    protected User(){
-//        createdAt = LocalDateTime.now();
-//    }
+    @Column(name = "role")
+    private String roles;
+
+
 
 }
