@@ -24,6 +24,10 @@ public class UserDetails implements org.springframework.security.core.userdetail
                 .collect(Collectors.toList());
     }
 
+    public User getUser() {
+        return user;
+    }
+
     @Override
     public String getPassword() {
         return user.getPassword();

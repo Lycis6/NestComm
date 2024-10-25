@@ -44,20 +44,22 @@ public class SecurityConfig {
         return userService;
     }
 
-
-
-
     @Bean
     protected SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/NestComm", "/NestComm/**","/NestComm/validate").permitAll()
-                        .requestMatchers("product/{id}","product").authenticated()
+                        .requestMatchers("/user/registration", "user/registration/new").permitAll()
+                        .requestMatchers("/image/{id}","/home","/user/update").authenticated()
+                        .requestMatchers("/product/delete/{id}","/product/add","product/{id}","product").authenticated()
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .defaultSuccessUrl("/product")
+                        .defaultSuccessUrl("/home",true)
                         .permitAll()
+                )
+                .logout(logout -> logout.logoutUrl("/logout")
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/")
                 )
                 .csrf(AbstractHttpConfigurer::disable);
 

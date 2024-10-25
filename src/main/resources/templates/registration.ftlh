@@ -9,7 +9,7 @@
 
 
 <h1>User registration</h1>
-<form action = "/NestComm/reg/newUser" method="post">
+<form action = "/user/registration/new" method="post">
     Логин (email): <input type = "text" name = "email" /> <br><br>
     Пароль: <input type = "text" name = "password" /> <br><br>
     Автор: <input type = "checkbox" name = "isAuthor" /> <br><br>

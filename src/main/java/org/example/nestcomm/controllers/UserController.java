@@ -1,14 +1,28 @@
 package org.example.nestcomm.controllers;
 
+import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
+import org.example.nestcomm.configurations.UserDetails;
 import org.example.nestcomm.models.User;
 import org.example.nestcomm.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.security.Principal;
 
 @Controller
+@Slf4j
 public class UserController {
     private final UserService userService;
 
@@ -17,31 +31,35 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/NestComm")
-    public String registration() {
-        return "loginPage";
-    }
-
-    @PostMapping("/NestComm/validate")
-    public String validateUserDetails(@RequestParam("login") String login, @RequestParam("password") String password) {
-        if(userService.validateUserDetails(login, password))
-            return "redirect:/product";
-        else
-            return "loginPage";
-    }
-
-    @GetMapping("/NestComm/reg")
+    @GetMapping("/user/registration")
     public String registrationUser() {
-        return "reg";
+        return "registration";
     }
 
-    @PostMapping("/NestComm/reg/newUser")
-    public String registrationUser(User user) {
-
+    @PostMapping("/user/registration/new")
+    public String registrationUser(@Valid User user, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            return "registration";
+        }
         userService.createUser(user);
-        return "redirect:/loginPage";
+        return "redirect:/login";
     }
 
+    @GetMapping("/home")
+    // Principal - текущий залогиненный пользователь
+    public String homePage(Model model, @AuthenticationPrincipal UserDetails userDetails) {
+        model.addAttribute("image", userDetails.getUser().getImage());
+        model.addAttribute("currentUser", userDetails.getUser());
+        return "home";
+    }
 
+    @PostMapping("/user/update")
+    public void updateUser(User userUpdated, @AuthenticationPrincipal UserDetails userDetails,
+                           @RequestParam("file") MultipartFile file, Errors errors) throws IOException
+    {
 
+        User userCurrent = userDetails.getUser();
+        userService.updateUser(userCurrent, userUpdated, file);
+
+    }
 }
