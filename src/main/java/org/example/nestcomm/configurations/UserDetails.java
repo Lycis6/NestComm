@@ -40,12 +40,12 @@ public class UserDetails implements org.springframework.security.core.userdetail
 
     @Override
     public boolean isAccountNonExpired() {
-        return user.getActive();
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return user.getActive();
     }
 
     @Override

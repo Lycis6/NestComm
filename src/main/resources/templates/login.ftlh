@@ -19,5 +19,8 @@
 <form action = "/user/registration" method="get">
   <input type = "submit" value = "Зарегистрироваться">
 </form>
+${error!} <br><br>
+
+
 </body>
 </html>
