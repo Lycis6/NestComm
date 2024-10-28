@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -37,17 +38,25 @@ public class UserService implements UserDetailsService {
 
     }
 
-    public void createUser(User user) {
+    public List<User> getAllUsers(){
+        if(userRepository.findAll().isEmpty()) {
+            return null;
+        }
+        return userRepository.findAll();
+    }
+
+    public boolean createUser(User user) {
         String email = user.getEmail();
         if(userRepository.findByEmail(email).isPresent()) {
             log.info("User with email {} already exists", email);
-            return;
+            return false;
         }
         user.setActive(true);
         user.setRoles("USER");
         log.info("User created: {}", email);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
+        return true;
     }
 
     public void updateUser(User userCurrent,User userUpdated, MultipartFile file) throws IOException {
@@ -66,6 +75,30 @@ public class UserService implements UserDetailsService {
 
         log.info("User updated: {}", userCurrent.getEmail());
     }
+
+    public boolean banUserWithEmail(String email) {
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+        if(optionalUser.isPresent()) {
+            optionalUser.get().setActive(false);
+            userRepository.save(optionalUser.get());
+            log.info("User with email {} has been banned", email);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean unbanUserWithEmail(String email) {
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+        if(optionalUser.isPresent()) {
+            optionalUser.get().setActive(true);
+            userRepository.save(optionalUser.get());
+            log.info("User with email {} has been unbanned", email);
+            return true;
+        }
+        return false;
+    }
+
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

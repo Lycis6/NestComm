@@ -37,12 +37,13 @@ public class UserController {
     }
 
     @PostMapping("/user/registration/new")
-    public String registrationUser(@Valid User user, BindingResult bindingResult, Model model) {
+    public String registrationUser(User user, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             return "registration";
         }
-        userService.createUser(user);
-        return "redirect:/login";
+        if(userService.createUser(user))
+            return "redirect:/login";
+        return "registration";
     }
 
     @GetMapping("/home")

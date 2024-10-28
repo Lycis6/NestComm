@@ -23,9 +23,11 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.annotation.web.configurers.FormLoginConfigurer;
 import org.springframework.security.config.ldap.EmbeddedLdapServerContextSourceFactoryBean;
 import org.springframework.security.config.ldap.LdapBindAuthenticationManagerFactory;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 import static org.springframework.security.config.Customizer.withDefaults;
@@ -51,6 +53,7 @@ public class SecurityConfig {
                         .requestMatchers("/user/registration", "user/registration/new").permitAll()
                         .requestMatchers("/image/{id}","/home","/user/update").authenticated()
                         .requestMatchers("/product/delete/{id}","/product/add","product/{id}","product").authenticated()
+                        .requestMatchers("admin","/admin/ban/{email}", "/admin/unban/{email}").hasAuthority("ADMIN")
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
@@ -60,8 +63,8 @@ public class SecurityConfig {
                 .logout(logout -> logout.logoutUrl("/logout")
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/")
-                )
-                .csrf(AbstractHttpConfigurer::disable);
+                        .permitAll()
+                );
 
 
         return http.build();

@@ -13,6 +13,11 @@
     <input type="password" name="password" placeholder="Password"/>
   </div>
   <input type="submit" value="Log in" />
+  <input type="hidden" name="_csrf" value="${_csrf.token}">
+</form>
+
+<form action = "/user/registration" method="get">
+  <input type = "submit" value = "Зарегистрироваться">
 </form>
 </body>
 </html>

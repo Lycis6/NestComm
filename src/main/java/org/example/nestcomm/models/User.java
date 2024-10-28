@@ -57,6 +57,14 @@ public class User  {
         createdAt = LocalDateTime.now();
     }
 
+    public boolean isAdmin(){
+        return roles.contains("ADMIN");
+    }
+
+    public String isActive(){
+        return active?"active":"inactive";
+    }
+
 
 
 }
