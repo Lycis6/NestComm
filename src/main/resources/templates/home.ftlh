@@ -12,11 +12,29 @@
 Email: ${currentUser.getEmail()!} <br><br>
 Номер телефона: ${currentUser.getPhoneNumber()!} <br><br>
 
+<#if currentUser.isAuthor()>
+    <form action = "/author/userPage" method="get">
+        <input type="hidden" name="_csrf" value="${_csrf.token}">
+        <input type = "submit" value = "Авторская страница">
+    </form>
+
+</#if>
+
+<#if currentUser.isApproved() && !currentUser.isAuthor()>
+    <a href = "/user/became/author"> Стань автором!</a> <br><br>
+</#if>
+
+<#if !currentUser.isApproved() && !currentUser.isAdmin()>
+Заполни все данные для открытия новых возможностей! <br><br>
+</#if>
+
 <#if currentUser.isAdmin()>
  <a href = "/admin"> Панель администратора</a>
 </#if>
 
 <#if !currentUser.isAdmin()>
+
+
 <h1>Обновить данные поьзователя</h1>
 <form action = "/user/update" method="post" enctype="multipart/form-data">
     Автатар: <input type = "file" name = "file" /> <br><br>

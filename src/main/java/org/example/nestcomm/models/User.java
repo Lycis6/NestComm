@@ -53,6 +53,9 @@ public class User  {
     @Column(name = "role")
     private String roles;
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
+    private List<Product> products = new ArrayList<>();
+
     public User(){
         createdAt = LocalDateTime.now();
     }
@@ -61,10 +64,23 @@ public class User  {
         return roles.contains("ADMIN");
     }
 
+    public boolean isAuthor(){
+        return roles.contains("AUTHOR");
+    }
+
+    // возвращает true, если заполнены данные пользователя
+    public boolean isApproved(){
+        return name != null && surname != null && phoneNumber != null;
+    }
+
     public String isActive(){
         return active?"active":"inactive";
     }
 
-
+    public String getRegistrationTime(){
+        if(createdAt != null)
+            return createdAt.toString();
+        return "none";
+    }
 
 }

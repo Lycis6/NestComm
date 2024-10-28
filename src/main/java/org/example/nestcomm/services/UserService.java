@@ -98,6 +98,15 @@ public class UserService implements UserDetailsService {
         return false;
     }
 
+    public void becameAuthor(User user) {
+        user.setRoles(user.getRoles() + ", AUTHOR");
+        userRepository.save(user);
+    }
+
+    public Optional<User> findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
 
 
     @Override

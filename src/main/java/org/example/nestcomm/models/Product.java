@@ -37,6 +37,10 @@ public class Product {
 
     private Long previewImageId;
 
+    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private User user;
+
     public void addImage(Image image) {
         image.setProduct(this);
         this.images.add(image);

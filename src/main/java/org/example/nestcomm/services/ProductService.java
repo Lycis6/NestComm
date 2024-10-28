@@ -1,7 +1,9 @@
 package org.example.nestcomm.services;
 import lombok.extern.slf4j.Slf4j;
+import org.example.nestcomm.configurations.UserDetails;
 import org.example.nestcomm.models.Product;
 import org.example.nestcomm.models.Image;
+import org.example.nestcomm.models.User;
 import org.example.nestcomm.repositories.ProductRepositoryInt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,7 +24,8 @@ public class ProductService {
 
     public List<Product> getList(){return productRepository.findAll();}
 
-    public void saveProduct(Product product, MultipartFile file1, MultipartFile file2, MultipartFile file3) throws IOException {
+    public void saveProduct(Product product, MultipartFile file1, MultipartFile file2, MultipartFile file3
+                            , UserDetails userDetails) throws IOException {
         Image image1, image2, image3;
         if(!file1.isEmpty()){
             image1 = ToImageEntity(file1);
@@ -37,6 +40,7 @@ public class ProductService {
             image3 = ToImageEntity(file3);
             product.addImage(image3);
         }
+        product.setUser(userDetails.getUser());
         log.info("Saving product: Title {}; Author {}", product.getName(), product.getAuthor());
         Product savedProduct = productRepository.save(product);
         savedProduct.setPreviewImageId(product.getImages().get(0).getId());

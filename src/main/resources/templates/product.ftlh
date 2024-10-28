@@ -23,6 +23,7 @@
     Первая фотография: <input type = "file" name = "file1" /> <br><br>
     Первая фотография: <input type = "file" name = "file2" /> <br><br>
     Первая фотография: <input type = "file" name = "file3" /> <br><br>
+    <input type="hidden" name="_csrf" value="${_csrf.token}">
     <input type = "submit" value = "Добавить товар">
 </form>
 </body>

@@ -1,8 +1,10 @@
 package org.example.nestcomm.controllers;
 
+import org.example.nestcomm.configurations.UserDetails;
 import org.example.nestcomm.models.Product;
 import org.example.nestcomm.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,8 +41,8 @@ public class ProductController {
 
     @PostMapping("/product/add")
     public String addProduct(Product product, @RequestParam("file1") MultipartFile file1, @RequestParam("file2") MultipartFile file2,
-    @RequestParam("file3") MultipartFile file3) throws IOException {
-        productService.saveProduct(product, file1, file2, file3);
+    @RequestParam("file3") MultipartFile file3, @AuthenticationPrincipal UserDetails userDetails) throws IOException {
+        productService.saveProduct(product, file1, file2, file3, userDetails);
         return "redirect:/product";
     }
 
