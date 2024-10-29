@@ -32,7 +32,7 @@ public class Product {
 
     // CascadeType.ALL - удаляет все фотографии связанные с товаром при удалении товара
     // и добавляет все фотографии при добавления товара, т.е отдельно к репозиторию фотографий обращаться не нужно
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "product")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "product")
     private List<Image> images = new ArrayList<>();
 
     private Long previewImageId;

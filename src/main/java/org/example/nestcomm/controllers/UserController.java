@@ -5,6 +5,7 @@ import org.example.nestcomm.configurations.UserDetails;
 import org.example.nestcomm.models.User;
 import org.example.nestcomm.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -60,6 +61,7 @@ public class UserController {
 
     }
 
+    @PreAuthorize("hasAuthority('USER')")
     @GetMapping("/user/became/author")
     public String becameAuthor(Model model, @AuthenticationPrincipal UserDetails userDetails) {
         userService.becameAuthor(userDetails.getUser());

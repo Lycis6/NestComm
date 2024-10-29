@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ProductRepositoryInt extends JpaRepository<Product, Long> {
-    //void updateProductByID(Long id, Product savedProduct);
+
 }

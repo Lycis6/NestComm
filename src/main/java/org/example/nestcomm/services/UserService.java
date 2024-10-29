@@ -40,6 +40,8 @@ public class UserService implements UserDetailsService {
 
     public List<User> getAllUsers(){
         if(userRepository.findAll().isEmpty()) {
+            log.info("No Users found");
+            // TODO написать exception
             return null;
         }
         return userRepository.findAll();
@@ -49,6 +51,7 @@ public class UserService implements UserDetailsService {
         String email = user.getEmail();
         if(userRepository.findByEmail(email).isPresent()) {
             log.info("User with email {} already exists", email);
+            // TODO написать exception
             return false;
         }
         user.setActive(true);
@@ -84,6 +87,7 @@ public class UserService implements UserDetailsService {
             log.info("User with email {} has been banned", email);
             return true;
         }
+        // TODO написать exception
         return false;
     }
 
@@ -95,6 +99,7 @@ public class UserService implements UserDetailsService {
             log.info("User with email {} has been unbanned", email);
             return true;
         }
+        // TODO написать exception
         return false;
     }
 

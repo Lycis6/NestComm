@@ -55,7 +55,6 @@ public class SecurityConfig {
                         .requestMatchers("/product/delete/{id}","/product/add","product/{id}","product",
                                 "/user/became/author", "/author/{email}").authenticated()
                         .requestMatchers("admin","/admin/ban/{email}", "/admin/unban/{email}").hasAuthority("ADMIN")
-                        .requestMatchers("/author/userPage").hasAuthority("AUTHOR")
                 )
                 .formLogin(form -> form
                         .loginPage("/login")

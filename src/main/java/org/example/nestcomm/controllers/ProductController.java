@@ -4,6 +4,7 @@ import org.example.nestcomm.configurations.UserDetails;
 import org.example.nestcomm.models.Product;
 import org.example.nestcomm.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,13 +33,16 @@ public class ProductController {
     }
 
     @GetMapping("/product/{id}")
-    public String getProductByID(@PathVariable Long id, Model model) {
+    public String getProductByID(@PathVariable Long id, Model model, @AuthenticationPrincipal UserDetails userDetails) {
         Product product = productService.getProductById(id);
         model.addAttribute("product",product);
+        model.addAttribute("authorId", product.getUser().getID());
         model.addAttribute("images", product.getImages());
+        model.addAttribute("currentUser", userDetails);
         return "productInfo";
     }
 
+    @PreAuthorize("hasAnyAuthority('AUTHOR', 'ADMIN')")
     @PostMapping("/product/add")
     public String addProduct(Product product, @RequestParam("file1") MultipartFile file1, @RequestParam("file2") MultipartFile file2,
     @RequestParam("file3") MultipartFile file3, @AuthenticationPrincipal UserDetails userDetails) throws IOException {
@@ -46,9 +50,10 @@ public class ProductController {
         return "redirect:/product";
     }
 
+    @PreAuthorize("hasAnyAuthority('AUTHOR', 'ADMIN')")
     @PostMapping("/product/delete/{id}")
-    public String deleteProduct(@PathVariable Long id) {
-        productService.deleteProduct(id);
+    public String deleteProduct(@PathVariable Long id, @AuthenticationPrincipal UserDetails userDetails) {
+        productService.deleteProduct(id, userDetails);
         return "redirect:/product";
     }
 }

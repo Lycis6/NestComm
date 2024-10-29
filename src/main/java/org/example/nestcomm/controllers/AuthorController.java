@@ -16,16 +16,10 @@ public class AuthorController {
     public AuthorController(UserService userService) {
         this.userService = userService;
     }
-    @GetMapping("/author/userPage")
-    public String userPage(Model model, @AuthenticationPrincipal UserDetails userDetails) {
-        model.addAttribute("currentUser", userDetails.getUser());
-        model.addAttribute("image", userDetails.getUser().getImage());
-        model.addAttribute("listOfGoods", userDetails.getUser().getProducts());
-        return "authorPage";
-    }
+
 
     @GetMapping("/author/{email}")
-    public String authorPage(@PathVariable String email,Model model) {
+    public String authorPage(@PathVariable String email, Model model) {
         User user = userService.findByEmail(email).get();
         model.addAttribute("currentUser", user);
         model.addAttribute("image", user.getImage());

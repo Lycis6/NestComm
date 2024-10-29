@@ -13,7 +13,7 @@ Email: ${currentUser.getEmail()!} <br><br>
 Номер телефона: ${currentUser.getPhoneNumber()!} <br><br>
 
 <#if currentUser.isAuthor()>
-    <form action = "/author/userPage" method="get">
+    <form action = "/author/${currentUser.getEmail()!}" method="get">
         <input type="hidden" name="_csrf" value="${_csrf.token}">
         <input type = "submit" value = "Авторская страница">
     </form>

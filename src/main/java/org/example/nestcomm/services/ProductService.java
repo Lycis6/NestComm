@@ -4,6 +4,7 @@ import org.example.nestcomm.configurations.UserDetails;
 import org.example.nestcomm.models.Product;
 import org.example.nestcomm.models.Image;
 import org.example.nestcomm.models.User;
+import org.example.nestcomm.repositories.ImageRepositoryInt;
 import org.example.nestcomm.repositories.ProductRepositoryInt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,15 +12,18 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @Slf4j
 public class ProductService {
     private final ProductRepositoryInt productRepository;
+    private ImageRepositoryInt imageRepository;
 
     @Autowired
-    ProductService(ProductRepositoryInt productRepository) {
+    ProductService(ProductRepositoryInt productRepository, ImageRepositoryInt imageRepository) {
         this.productRepository = productRepository;
+        this.imageRepository = imageRepository;
     }
 
     public List<Product> getList(){return productRepository.findAll();}
@@ -50,14 +54,22 @@ public class ProductService {
 
     public Product getProductById(Long id){
         if(productRepository.findById(id).isEmpty()){
+            log.info("Product with id {} not found", id);
+            // TODO написать exception
             return null;
         }
         return productRepository.findById(id).get();
     }
 
-    public void deleteProduct(Long id){
+    public void deleteProduct(Long id, UserDetails userDetails){
         log.info("Deleting product: {}", id);
-        productRepository.deleteById(id);
+        Product product = productRepository.findById(id).get();
+        if(!Objects.equals(product.getUser().getID(), userDetails.getUser().getID())){
+            log.info("User does not have permission to delete product: {}", id);
+            // TODO написать exception
+            return;
+        }
+        productRepository.delete(product);
     }
 
     Image ToImageEntity(MultipartFile file) throws IOException {
