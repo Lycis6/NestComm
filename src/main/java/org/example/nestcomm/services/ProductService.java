@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -18,15 +19,22 @@ import java.util.Objects;
 @Slf4j
 public class ProductService {
     private final ProductRepositoryInt productRepository;
-    private ImageRepositoryInt imageRepository;
 
     @Autowired
     ProductService(ProductRepositoryInt productRepository, ImageRepositoryInt imageRepository) {
         this.productRepository = productRepository;
-        this.imageRepository = imageRepository;
     }
 
     public List<Product> getList(){return productRepository.findAll();}
+
+    public List<Product> getListByName(String name) {
+        if(name != null) {
+            List<Product> products = productRepository.findByName(name);
+            if(products.isEmpty()) return productRepository.findAll();
+            return products;
+        }
+        return productRepository.findAll();
+    }
 
     public void saveProduct(Product product, MultipartFile file1, MultipartFile file2, MultipartFile file3
                             , UserDetails userDetails) throws IOException {

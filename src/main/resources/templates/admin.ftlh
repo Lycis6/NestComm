@@ -7,12 +7,13 @@
 </head>
 <body>
 <h>Table</h>
-<table>
+<table border="1">
     <tr>
         <th>Email</th>
         <th>Роли</th>
         <th>Статус</th>
         <th>Бан</th>
+        <th>Подробнее</th>
     </tr>
     <#list users as user>
         <tr>
@@ -36,7 +37,11 @@
                     </form>
                 </th>
             </#if>
-            <th>Подробная информация</th>
+            <th>
+                <div>
+                    <p> <a href = "/admin/user/${user.getEmail()}"> ${user.getEmail()} </a> </p>
+                </div>
+            </th>
         </tr>
     <#else>
         <h1>Пользователей нет</h1>

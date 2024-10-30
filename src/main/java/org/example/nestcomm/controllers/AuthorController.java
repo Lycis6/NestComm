@@ -17,7 +17,7 @@ public class AuthorController {
         this.userService = userService;
     }
 
-
+    // возвращает авторскую страницу
     @GetMapping("/author/{email}")
     public String authorPage(@PathVariable String email, Model model) {
         User user = userService.findByEmail(email).get();

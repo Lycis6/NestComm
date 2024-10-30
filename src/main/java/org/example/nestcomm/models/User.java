@@ -68,6 +68,10 @@ public class User  {
         return roles.contains("AUTHOR");
     }
 
+    public boolean isRegistered(){
+        return email != null && password != null;
+    }
+
     // возвращает true, если заполнены данные пользователя
     public boolean isApproved(){
         return name != null && surname != null && phoneNumber != null;

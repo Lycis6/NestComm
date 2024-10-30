@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-//@PreAuthorize("hasRole('ADMIN')")
 @Controller
+@PreAuthorize("hasAuthority('ADMIN')")
 public class AdminController {
     UserService userService;
 
@@ -23,6 +23,12 @@ public class AdminController {
     public String admin(Model model) {
         model.addAttribute("users", userService.getAllUsers());
         return "admin";
+    }
+
+    @GetMapping("/admin/user/{email}")
+    public String user(@PathVariable String email, Model model) {
+        model.addAttribute("user",userService.findByEmail(email).get());
+        return "userInfo";
     }
 
     @GetMapping("/admin/ban/{email}")

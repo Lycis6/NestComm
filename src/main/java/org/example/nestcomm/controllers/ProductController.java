@@ -2,6 +2,7 @@ package org.example.nestcomm.controllers;
 
 import org.example.nestcomm.configurations.UserDetails;
 import org.example.nestcomm.models.Product;
+import org.example.nestcomm.models.User;
 import org.example.nestcomm.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -27,7 +28,13 @@ public class ProductController {
     }
 
     @GetMapping("/product")
-    public String getProducts(Model model) {
+    public String getProducts(Model model, @AuthenticationPrincipal UserDetails userDetails) {
+        if(userDetails != null)
+            model.addAttribute("currentUser", userDetails.getUser());
+        else{ // продукт смотрит незарегистрированный пользователь
+            User emptyUser = new User();
+            model.addAttribute("currentUser", emptyUser);
+        }
         model.addAttribute("listOfGoods", productService.getList());
         return "product";
     }
@@ -35,11 +42,30 @@ public class ProductController {
     @GetMapping("/product/{id}")
     public String getProductByID(@PathVariable Long id, Model model, @AuthenticationPrincipal UserDetails userDetails) {
         Product product = productService.getProductById(id);
+        if(userDetails != null)
+            model.addAttribute("currentUser", userDetails.getUser());
+        else{ // продукт смотрит незарегистрированный пользователь
+            User emptyUser = new User();
+            model.addAttribute("currentUser", emptyUser);
+        }
         model.addAttribute("product",product);
         model.addAttribute("authorId", product.getUser().getID());
         model.addAttribute("images", product.getImages());
-        model.addAttribute("currentUser", userDetails);
+
         return "productInfo";
+    }
+
+    // возвращает список продуктов по названию
+    @GetMapping("/product/find")
+    public String getProductByName(@RequestParam String name, Model model, @AuthenticationPrincipal UserDetails userDetails) {
+        if(userDetails != null)
+            model.addAttribute("currentUser", userDetails.getUser());
+        else{ // продукт смотрит незарегистрированный пользователь
+            User emptyUser = new User();
+            model.addAttribute("currentUser", emptyUser);
+        }
+        model.addAttribute("listOfGoods", productService.getListByName(name));
+        return "product";
     }
 
     @PreAuthorize("hasAnyAuthority('AUTHOR', 'ADMIN')")

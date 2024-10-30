@@ -50,11 +50,13 @@ public class SecurityConfig {
     protected SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/user/registration", "user/registration/new").permitAll()
+                        .requestMatchers("/user/registration", "user/registration/new", "product", "/image/{id}",
+                                "product/{id}", "/product/find").permitAll()
                         .requestMatchers("/image/{id}","/home","/user/update").authenticated()
-                        .requestMatchers("/product/delete/{id}","/product/add","product/{id}","product",
+                        .requestMatchers("/product/delete/{id}","/product/add",
                                 "/user/became/author", "/author/{email}").authenticated()
-                        .requestMatchers("admin","/admin/ban/{email}", "/admin/unban/{email}").hasAuthority("ADMIN")
+                        .requestMatchers("admin","/admin/ban/{email}", "/admin/unban/{email}",
+                                "admin").hasAuthority("ADMIN")
                 )
                 .formLogin(form -> form
                         .loginPage("/login")

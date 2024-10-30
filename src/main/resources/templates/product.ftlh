@@ -6,12 +6,28 @@
     </title>
 </head>
 <body>
+<#if !currentUser.isRegistered() >
+    <div>
+        <p> <a href = "/login"> Войти </a> </p>
+    </div>
+    <div>
+        <p> <a href = "/user/registration"> Зарегистрироваться </a> </p>
+    </div>
+</#if>
+<br><br>
 <h>List of goods</h>
+<br><br>
+<form action = "/product/find" method="get">
+    Поиск: <input type = "text" name = "name" />
+    <input type = "submit" value = "Поиск">
+</form>
+
 <#list listOfGoods as product>
     <div>
         <p> <a href = "/product/${product.getID()}"> ${product.getName()} </a> </p>
     </div>
 </#list>
+<#if currentUser.isRegistered() && currentUser.isAuthor()>
 <h1>Product create</h1>
 <form action = "/product/add" method="post" enctype="multipart/form-data">
     Название товара: <input type = "text" name = "name" /> <br><br>
@@ -26,5 +42,6 @@
     <input type="hidden" name="_csrf" value="${_csrf.token}">
     <input type = "submit" value = "Добавить товар">
 </form>
+</#if>
 </body>
 </html>
