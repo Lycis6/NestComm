@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+
 <head>
   <title>Please Log In</title>
+
+  <link href="/static/css/main.css" rel="stylesheet" />
 </head>
+
 <body>
 <h1>Please Log In</h1>
 <form th:action="@{/login}" method="post">

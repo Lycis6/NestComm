@@ -100,11 +100,11 @@
             <version>6.1.13</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.thymeleaf</groupId>
-            <artifactId>thymeleaf</artifactId>
-            <version>3.1.2.RELEASE</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.thymeleaf</groupId>-->
+<!--            <artifactId>thymeleaf</artifactId>-->
+<!--            <version>3.1.2.RELEASE</version>-->
+<!--        </dependency>-->
 
 
 
@@ -121,7 +121,19 @@
             <version>6.3.4</version>
         </dependency>
 
+<!--       &lt;!&ndash;Для css&ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-thymeleaf</artifactId>-->
+<!--        </dependency>-->
+
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-devtools</artifactId>-->
+<!--        </dependency>-->
+
     </dependencies>
+
 
     <build>
         <plugins>
@@ -131,5 +143,7 @@
             </plugin>
         </plugins>
     </build>
+
+
 
 </project>

@@ -13,15 +13,15 @@ Email: ${currentUser.getEmail()!} <br><br>
 Номер телефона: ${currentUser.getPhoneNumber()!} <br><br>
 
 <#if currentUser.isAuthor()>
-    <form action = "/author/${currentUser.getEmail()!}" method="get">
-        <input type="hidden" name="_csrf" value="${_csrf.token}">
-        <input type = "submit" value = "Авторская страница">
-    </form>
+<form action = "/author/${currentUser.getEmail()!}" method="get">
+    <input type="hidden" name="_csrf" value="${_csrf.token}">
+    <input type = "submit" value = "Авторская страница">
+</form>
 
 </#if>
 
 <#if currentUser.isApproved() && !currentUser.isAuthor()>
-    <a href = "/user/became/author"> Стань автором!</a> <br><br>
+<a href = "/user/became/author"> Стань автором!</a> <br><br>
 </#if>
 
 <#if !currentUser.isApproved() && !currentUser.isAdmin()>
@@ -29,7 +29,7 @@ Email: ${currentUser.getEmail()!} <br><br>
 </#if>
 
 <#if currentUser.isAdmin()>
- <a href = "/admin"> Панель администратора</a>
+<a href = "/admin"> Панель администратора</a>
 </#if>
 
 <#if !currentUser.isAdmin()>
