@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.antlr.v4.runtime.misc.NotNull;
+import org.example.nestcomm.dto.UserDto;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.processing.Pattern;
 import org.springframework.validation.annotation.Validated;
@@ -85,6 +86,14 @@ public class User  {
         if(createdAt != null)
             return createdAt.toString();
         return "none";
+    }
+
+    public void transferDtoToModel(UserDto dto){
+        this.email = dto.getEmail();
+        this.password = dto.getPassword();
+        this.name = dto.getName();
+        this.surname = dto.getSurname();
+        this.phoneNumber = dto.getPhoneNumber();
     }
 
 }

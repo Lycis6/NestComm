@@ -38,7 +38,7 @@
         <h1>Регистрация</h1>
         <p>Чтобы создать учетную запись, пожалуйста, введите вашу почту и выберите пароль</p>
         <input type="text" name="email" placeholder="Email" required />
-        <input type="text" name="password" placeholder="Password" required />
+        <input type="password" name="password"  placeholder="Password" required />
         <label class="material-checkbox">
           <input type="checkbox" name="isAuthor">
           <span class="checkmark"></span>
@@ -55,7 +55,7 @@
         <h1>Авторизация</h1>
         <p>Для входа необходимо ввести почту и пароль</p>
         <input type="text" name="username" id="email" placeholder="Username" required />
-        <input type="text" name="password" id="password" placeholder="Password" required />
+        <input type="password" name="password" id="password" placeholder="Password" required />
         <div class="toggle-container">
           <label class="switch">
             <input type="checkbox" id="toggle-password" onclick="togglePasswordVisibility()">
@@ -132,4 +132,9 @@
     </svg>
   </button>
 </div>
+
+<br> <br>
+<!-- ошибки -->
+${errors!} <br><br>
+
 </body>

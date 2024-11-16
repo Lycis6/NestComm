@@ -34,7 +34,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/user/registration", "user/registration/new", "product", "/image/{id}",
-                                "product/{id}", "/product/find").permitAll()
+                                "product/{id}", "/product/find", "errors").permitAll()
                         .requestMatchers("/home","/user/update").authenticated()
                         .requestMatchers("/product/delete/{id}","/product/add",
                                 "/user/became/author", "/author/{email}").authenticated()

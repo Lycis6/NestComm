@@ -4,6 +4,7 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 //import org.example.nestcomm.models.Role;
+import org.example.nestcomm.dto.UserDto;
 import org.example.nestcomm.models.Image;
 import org.example.nestcomm.models.User;
 //import org.example.nestcomm.models.enums.RoleEnum;
@@ -47,7 +48,9 @@ public class UserService implements UserDetailsService {
         return userRepository.findAll();
     }
 
-    public boolean createUser(User user) {
+    public boolean createUser(UserDto userDto) {
+        User user = new User();
+        user.transferDtoToModel(userDto);
         String email = user.getEmail();
         if(userRepository.findByEmail(email).isPresent()) {
             log.info("User with email {} already exists", email);

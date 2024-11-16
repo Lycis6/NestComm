@@ -2,6 +2,7 @@ package org.example.nestcomm.controllers;
 
 import lombok.extern.slf4j.Slf4j;
 import org.example.nestcomm.configurations.UserDetails;
+import org.example.nestcomm.dto.UserDto;
 import org.example.nestcomm.models.User;
 import org.example.nestcomm.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,13 +36,15 @@ public class UserController {
     }
 
     @PostMapping("/user/registration/new")
-    public String registrationUser(User user, BindingResult bindingResult, Model model) {
+    public String registrationUser(@Validated UserDto userDto, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            return "registration";
+            log.info("Bad validation");
+            model.addAttribute("errors", bindingResult.getFieldError().getDefaultMessage());
+            return "login";
         }
-        if(userService.createUser(user))
+        if(userService.createUser(userDto))
             return "redirect:/login";
-        return "registration";
+        return "login";
     }
 
     @GetMapping("/home")
@@ -55,10 +59,8 @@ public class UserController {
     public void updateUser(User userUpdated, @AuthenticationPrincipal UserDetails userDetails,
                            @RequestParam("file") MultipartFile file, Errors errors) throws IOException
     {
-
         User userCurrent = userDetails.getUser();
         userService.updateUser(userCurrent, userUpdated, file);
-
     }
 
     @PreAuthorize("hasAuthority('USER')")
@@ -69,4 +71,6 @@ public class UserController {
         model.addAttribute("image", userDetails.getUser().getImage());
         return "authorPage";
     }
+
+
 }
