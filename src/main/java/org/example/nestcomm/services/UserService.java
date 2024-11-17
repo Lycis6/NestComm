@@ -65,8 +65,10 @@ public class UserService implements UserDetailsService {
         return true;
     }
 
-    public void updateUser(User userCurrent,User userUpdated, MultipartFile file) throws IOException {
+    public void updateUser(User userCurrent,UserDto userDto, MultipartFile file) throws IOException {
         log.info("Updating user: {}", userCurrent.getEmail());
+        User userUpdated = new User();
+        userUpdated.transferDtoToModel(userDto);
         if(!file.isEmpty()){
             Image image;
             image = ToImageEntity(file);
@@ -113,6 +115,12 @@ public class UserService implements UserDetailsService {
 
     public Optional<User> findByEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+
+    public void changePassword(User user, UserDto userDto) {
+        log.info("Changing password for user: {}", user.getEmail());
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        userRepository.save(user);
     }
 
 

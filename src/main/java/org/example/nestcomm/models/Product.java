@@ -3,6 +3,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.example.nestcomm.dto.ProductDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +30,8 @@ public class Product {
     private String author;
     @Column(name = "category")
     private String category;
+//    @Column(name = "balance")
+//    private int balance;
 
     // CascadeType.ALL - удаляет все фотографии связанные с товаром при удалении товара
     // и добавляет все фотографии при добавления товара, т.е отдельно к репозиторию фотографий обращаться не нужно
@@ -44,5 +47,15 @@ public class Product {
     public void addImage(Image image) {
         image.setProduct(this);
         this.images.add(image);
+    }
+
+    public void transferDtoToModel(ProductDto dto) {
+        this.price = dto.getPrice();
+        this.name = dto.getName();
+        this.description = dto.getDescription();
+        this.city = dto.getCity();
+        if(dto.getAuthor() != null) this.author = dto.getAuthor();
+        this.category = dto.getCategory();
+//        this.balance = dto.getBalance();
     }
 }

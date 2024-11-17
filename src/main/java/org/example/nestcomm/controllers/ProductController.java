@@ -1,6 +1,7 @@
 package org.example.nestcomm.controllers;
 
 import org.example.nestcomm.configurations.UserDetails;
+import org.example.nestcomm.dto.ProductDto;
 import org.example.nestcomm.models.Product;
 import org.example.nestcomm.models.User;
 import org.example.nestcomm.services.ProductService;
@@ -9,6 +10,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -69,10 +71,11 @@ public class ProductController {
     }
 
     @PreAuthorize("hasAnyAuthority('AUTHOR', 'ADMIN')")
-    @PostMapping("/product/add")
-    public String addProduct(Product product, @RequestParam("file1") MultipartFile file1, @RequestParam("file2") MultipartFile file2,
-    @RequestParam("file3") MultipartFile file3, @AuthenticationPrincipal UserDetails userDetails) throws IOException {
-        productService.saveProduct(product, file1, file2, file3, userDetails);
+    @PostMapping("/product/create/new")
+    public String addProduct(@Validated ProductDto productDto, @RequestParam("file1") MultipartFile file1, @RequestParam("file2") MultipartFile file2,
+                             @RequestParam("file3") MultipartFile file3, @AuthenticationPrincipal UserDetails userDetails) throws IOException {
+        productDto.setAuthor(userDetails.getUser().getEmail());
+        productService.saveProduct(productDto, file1, file2, file3, userDetails);
         return "redirect:/product";
     }
 
@@ -81,5 +84,11 @@ public class ProductController {
     public String deleteProduct(@PathVariable Long id, @AuthenticationPrincipal UserDetails userDetails) {
         productService.deleteProduct(id, userDetails);
         return "redirect:/product";
+    }
+
+    @PreAuthorize("hasAnyAuthority('AUTHOR', 'ADMIN')")
+    @GetMapping("/product/create")
+    public String createProduct(){
+        return "productCreate";
     }
 }

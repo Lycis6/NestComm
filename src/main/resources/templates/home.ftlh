@@ -11,6 +11,11 @@
 Фамилия: ${currentUser.getSurname()!} <br><br>
 Email: ${currentUser.getEmail()!} <br><br>
 Номер телефона: ${currentUser.getPhoneNumber()!} <br><br>
+<form action = "/user/passwordChange" method="get">
+    <input type="hidden" name="_csrf" value="${_csrf.token}">
+    <input type = "submit" value = "Поменять пароль">
+</form>
+
 
 <#if currentUser.isAuthor()>
 <form action = "/author/${currentUser.getEmail()!}" method="get">
@@ -37,10 +42,10 @@ Email: ${currentUser.getEmail()!} <br><br>
 
 <h1>Обновить данные поьзователя</h1>
 <form action = "/user/update" method="post" enctype="multipart/form-data">
-    Автатар: <input type = "file" name = "file" /> <br><br>
-    Имя: <input type = "text" name = "name" /> <br><br>
-    Фамилия: <input type = "text" name = "surname" /> <br><br>
-    Номер телефона: <input type = "text" name = "phoneNumber" /> <br><br>
+    Автатар: <input type = "file" name = "file"  /> <br><br>
+    Имя: <input type = "text" name = "name" required/> <br><br>
+    Фамилия: <input type = "text" name = "surname" required/> <br><br>
+    Номер телефона: <input type = "text" name = "phoneNumber" required/> <br><br>
     <input type="hidden" name="_csrf" value="${_csrf.token}">
     <input type = "submit" value = "Обновить данные">
 </form>

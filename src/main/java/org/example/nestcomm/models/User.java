@@ -28,19 +28,14 @@ public class User  {
     @Column(name = "id")
     private Long ID;
     @Column(name = "email", unique = true, nullable = false)
-    //@Email
-    //@Size(max = 50)
     private String email;
     @Column(name = "password", unique = true, nullable = false, length = 60)
-    //@Size(min = 6, max = 60)
     private String password;
     @Column(name = "name")
     private String name;
     @Column(name = "surname")
-    //@Size(min = 3, max = 30)
     private String surname;
     @Column(name = "phoneNumber", unique = true)
-   // @Size(min = 3, max = 30)
     private String phoneNumber;
     @Column(name = "active")
     private Boolean active;
@@ -89,11 +84,11 @@ public class User  {
     }
 
     public void transferDtoToModel(UserDto dto){
-        this.email = dto.getEmail();
-        this.password = dto.getPassword();
-        this.name = dto.getName();
-        this.surname = dto.getSurname();
-        this.phoneNumber = dto.getPhoneNumber();
+        if(dto.getEmail() != null) this.email = dto.getEmail();
+        if(dto.getPassword() != null) this.password = dto.getPassword();
+        if(dto.getName() != null) this.name = dto.getName();
+        if(dto.getSurname() != null) this.surname = dto.getSurname();
+        if(dto.getPhoneNumber() != null) this.phoneNumber = dto.getPhoneNumber();
     }
 
 }

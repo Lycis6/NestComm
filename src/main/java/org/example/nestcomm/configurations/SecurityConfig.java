@@ -35,9 +35,10 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/user/registration", "user/registration/new", "product", "/image/{id}",
                                 "product/{id}", "/product/find", "errors").permitAll()
-                        .requestMatchers("/home","/user/update").authenticated()
-                        .requestMatchers("/product/delete/{id}","/product/add",
-                                "/user/became/author", "/author/{email}").authenticated()
+                        .requestMatchers("/home","/user/update","user/passwordChange","user/passwordChange/new",
+                                "passwordChange").authenticated()
+                        .requestMatchers("/product/delete/{id}","/product/create/new",
+                                "/user/became/author", "/author/{email}", "product/create", "productCreate").authenticated()
                         .requestMatchers("admin","/admin/ban/{email}", "/admin/unban/{email}",
                                 "admin").hasAuthority("ADMIN")
                         .requestMatchers( "/static/**").permitAll()

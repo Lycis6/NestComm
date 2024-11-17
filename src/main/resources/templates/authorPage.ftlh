@@ -13,6 +13,10 @@ Email: ${currentUser.getEmail()!} <br><br>
 Номер телефона: ${currentUser.getPhoneNumber()!} <br><br>
 Дата регистрации на сайте: ${currentUser.getRegistrationTime()!} <br><br>
 Описание рода занятий:  <br><br>
+<form action = "/product/create" method="get">
+    <input type = "submit" value = "Создать товар">
+    <input type="hidden" name="_csrf" value="${_csrf.token}">
+</form>
 
 Предлагаемые товары и услуги:
 <#list listOfGoods as product>
