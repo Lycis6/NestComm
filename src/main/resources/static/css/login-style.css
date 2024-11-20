@@ -4,6 +4,25 @@ body {
     background-color: white; /* Цвет фона страницы */
 }
 
+/* Стиль полосы прокрутки */
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
 /* МЕНЮ */
 .navbar {
     display: flex;
@@ -12,7 +31,7 @@ body {
     background-color: white; /* Цвет фона меню */
     padding: 10px 20px; /* Отступы для меню */
     width: 1050px; /* Фиксированная ширина меню */
-    margin: 0 auto; /* Центрируем меню на странице */
+    margin: 0px auto; /* Центрируем меню на странице */
     /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); Тень для меню */
 }
 
@@ -60,7 +79,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.7); /* Затемненный фон */
+    background-color: rgba(239, 239, 239, 0.55); /* Затемненный фон */
     z-index: 9998; /* Расположение над остальным содержимым */
     justify-content: center; /* Центрирование содержимого */
     align-items: center; /* Вертикальное центрирование */
@@ -79,7 +98,7 @@ body {
 
 .container h1 {
     font-weight: bold;
-    margin: 20px 0;
+    margin: 2px 0;
 }
 
 .container p {
@@ -130,7 +149,7 @@ body {
     border: none;
     padding: 12px 15px;
     margin: 8px 0;
-    width: 100%;
+    width: 90%;
 }
 
 .container button {
@@ -180,7 +199,7 @@ body {
     width: 50%;
     z-index: 1;
     opacity: 0;
-}
+} 
 
 .overlay-container {
     position: absolute;
@@ -195,7 +214,7 @@ body {
 
 .overlay {
     background: rgba(248, 202, 169, 1);
-    background: linear-gradient(to right, rgba(238, 127, 126, 1), rgb(246, 185, 141)) no-repeat 0 0 / cover;
+    background: linear-gradient(to right, rgba(238, 127, 126, 1), rgb(248, 185, 141)) no-repeat 0 0 / cover;
     color: #fff;
     position: relative;
     left: -100%;
@@ -323,8 +342,8 @@ input:checked + .slider:before {
 
 .toggle-text {
     font-size: 10px;
-    color: rgba(153, 153, 153, 1);
-    margin-left: 10px;
+    color: rgba(80, 80, 80, 1);
+    margin-left: 15px;
     /* margin-top: 0.25vw; */
     display: flex;
     align-items: center;
@@ -333,7 +352,7 @@ input:checked + .slider:before {
 
 .toggle-forget-password {
     font-size: 10px;
-    color: rgba(153, 153, 153, 1);
+    color: rgba(80, 80, 80, 1);
     margin-left: auto;
     display: flex;
     align-items: center;
@@ -343,7 +362,7 @@ input:checked + .slider:before {
 .toggle-container {
     display: flex;
     align-items: center;
-    width: 100%;
+    width: 100.5%;
 }
 
 /* From Uiverse.io by Gautammsharma */ 
@@ -351,9 +370,9 @@ input:checked + .slider:before {
     display: flex;
     align-items: center;
     font-size: 12px;
-    color: #777777;
+    color: rgba(80, 80, 80, 1);
     cursor: pointer;
-    width: 100%;
+    width: 100.5%;
     margin: 3px 0;
 }
   
@@ -404,6 +423,7 @@ input:checked + .slider:before {
     border-color: rgba(236, 128, 128, 1);
 }
 
+
 .container-2 {
     display: flex;
     align-items: center;
@@ -414,6 +434,7 @@ input:checked + .slider:before {
     gap: 20px;
 }
 
+/* Кнопка каталог */
 .catalog {
     display: flex;
     align-items: center; /* Центрирует текст и иконку по вертикали */
@@ -443,17 +464,19 @@ input:checked + .slider:before {
     width: 660px;
     height: 44px;
     display: flex;
-    align-items: center;
+    align-items: center; /* Центрируем по вертикали все элементы внутри контейнера */
     justify-content: space-between; /* Изменено для размещения элементов по краям */
     background-color: rgba(244, 246, 248, 1);
-    border-radius: 10px;
-    border: 1px;
+    border-radius: 11px;
+    border: none;
     overflow: hidden;
     cursor: pointer;
-    padding: 0 15px; /* Изменено для равномерного отступа */
+    padding: 0 15px;
 }
 
 .input {
+    display: flex;
+    align-items: center;
     background-color: rgba(244, 246, 248, 1);
     font-family: 'Rubik', sans-serif;
     width: 100%;
@@ -465,10 +488,18 @@ input:checked + .slider:before {
     color: #505050;
 }
 
-.labelforsearch, .micButton {
+.labelforsearch, .micButton, .clearButton {
+    display: flex;  /* Включаем Flexbox для каждой кнопки */
+    justify-content: center;  /* Центрируем иконки по горизонтали */
+    align-items: center;      /* Центрируем иконки по вертикали */
     background: transparent;
     border: none;
     cursor: pointer;
+}
+
+.searchIcon, .micIcon {
+    width: 20px;  /* Задаем размеры иконок */
+    height: 20px; /* Задаем размеры иконок */
 }
 
 .clearButton {
@@ -477,22 +508,406 @@ input:checked + .slider:before {
     cursor: pointer;
 }
 
+/* Кнопки после поиска */
 .buttonLeft {
-    background-color:rgba(244, 246, 248, 1);
+    background-color: rgba(244, 246, 248, 1);
     color: rgb(0, 0, 0);
     padding: 13px 13px;
     border: none;
     border-radius: 15px;
     cursor: pointer; /* Курсор в виде указателя */
     transition: background-color 0.3s;
+    display: flex;  /* Включаем Flexbox */
+    justify-content: center;  /* Центрируем по горизонтали */
+    align-items: center;  /* Центрируем по вертикали */
 }
 
 .buttonLeft:hover {
     background-color: rgb(227, 228, 228); 
 }
+
 .size-6 {
     margin: 0; /* Убираем отступы */
 }
+
+.container-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 2fr; /* Три колонки одинаковой ширины */
+    grid-template-rows: auto auto; /* Две строки */
+    gap: 12px; /* Расстояние между фреймами */
+    width: 1050px; /* Ширина всей сетки */
+    margin: 0 auto; /* Центрирование сетки */
+}
+
+/* Общие стили для фреймов */
+.frame {
+    position: relative; /* Устанавливаем относительное позиционирование для фреймов */
+    margin-top: 10px;
+    border-radius: 19px;
+    padding: 20px;
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+    font-weight: 600;
+    display: flex;
+    align-items: flex-end;
+    text-decoration: none;
+    justify-content: space-between;
+    transition: transform 0.1s;
+}
+
+/* Эффекты при наведении */
+.frame.orange:hover, 
+.frame.green:hover, 
+.frame.blue:hover {
+    cursor: pointer;
+    transform: scale(1.02);
+}
+
+/* Кнопка в правом верхнем углу */
+.white-button {
+    width: 45px;
+    height: 45px;
+    position: absolute;
+    top: 21px;
+    right: 21px;
+    background-color: white;
+    border: none;
+    border-radius: 50%;
+    padding: 6px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.1s;
+}
+
+.white-button:hover {
+    transform: scale(1.1); /* Увеличиваем кнопку на 20% при наведении */
+}
+
+
+/* Стили для SVG-иконки */
+.white-button svg {
+    width: 24px;
+    height: 24px;
+    stroke: #000; /* Цвет иконки */
+}
+
+.text-frame {
+    padding: 6px;
+    max-width: 160px;
+    word-wrap: break-word;
+    white-space: normal;
+}
+
+.text-frame-green {
+    padding: 6px;
+    color: rgba(238, 127, 126, 1);
+    max-width: 140px;
+    word-wrap: break-word;
+    white-space: normal;
+}
+
+/* Оранжевый блок */
+.frame.orange {
+    margin-top: 25px;
+    width: 610px;
+    height: 140px;
+    background-color: rgb(246, 185, 141, 0.8);
+    grid-column: span 2;
+    grid-row: 1;
+}
+
+/* Голубой блок */
+.frame.blue {
+    height: 302px;
+    margin-right: 5px;
+    background-color: rgba(169, 218, 248, 1);
+    grid-column: 1;
+    grid-row: 2;
+}
+
+.frame.blue .zigzag {
+    position: absolute; /* Позиционируем SVG внутри контейнера */
+    top: 0;
+    left: 0;
+    width: 100%; /* Подгоняем SVG под ширину контейнера */
+    height: 100%; /* Подгоняем SVG под высоту контейнера */
+}
+
+/* Зеленый блок */
+.frame.green {
+    height: 302px;
+    margin-left: 5px;
+    background-color:rgba(225, 235, 117, 1);
+    grid-column: 2;
+    grid-row: 2;
+}
+
+.frame.image {
+    margin-top: 25px;
+    margin-left: 10px;
+    background-color: white;
+    grid-column: 3;
+    grid-row: span 2;
+    padding: 0;
+}
+
+.frame.image img {
+    width: 100%;
+    height: 100%;
+    border-radius: 22px;
+    object-fit: cover;
+}
+
+.container-4 {
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, .25), 0 10px 10px rgba(0, 0, 0, .22);
+    position: relative;
+    overflow: hidden;
+    width: 768px;
+    max-width: 100%;
+    min-height: 480px;
+}
+
+.content {
+    width: 80%;
+    margin: 0 0 0 80px;
+}
+
+.container-4 h2 {
+    font-size: 18px;
+}
+
+.container-4 p, ul {
+    font-size: 16px;
+}
+
+.container-4 ul {
+    list-style: disc;
+    margin-left: 10px;
+}
+
+/* Текст О нас*/
+.container-text {
+    display: block;
+    background-color: rgb(255, 255, 255); /* Цвет фона меню */
+    /* padding: 10px 20px; Отступы для меню */
+    width: 1050px; /* Фиксированная ширина меню */
+    /* height: 80px; */
+    margin: 0 auto; /* Центрируем меню на странице */
+    margin-top: 30px;
+    gap: 12px;
+}
+
+.container-reason {
+    display: flex;
+    align-items: center;
+    background-color: rgb(255, 255, 255); /* Цвет фона меню */
+    width: 1100px; /* Фиксированная ширина меню */
+    height: 170px;
+    gap: 12px; /* Расстояние между элементами внутри */
+    margin: 0 auto; /* Центрирование блока */
+}
+
+.reason {
+    width: 670px;
+    display: flex; /* Flexbox для вертикального выравнивания */
+    flex-direction: column; /* Направление содержимого: колонка */
+    align-items: center; /* Выравнивание по горизонтали */
+    justify-content: center; /* Центрирование по вертикали */
+    gap: 10px; /* Отступ между SVG и текстом */
+}
+
+.reason svg {
+    margin-bottom: 5px;
+}
+
+.text-reason {
+    margin-left: 10px;
+    margin-right: 10px;
+    max-width: 510px;
+    word-wrap: break-word;
+    white-space: normal;
+    text-align: center;
+}
+
+.container-reason {
+    display: flex;
+    align-items: center;
+    background-color: rgb(255, 255, 255); /* Цвет фона меню */
+    width: 1050px; /* Фиксированная ширина меню */
+    height: 170px;
+    gap: 12px; /* Расстояние между элементами внутри */
+    margin: 0 auto; /* Центрирование блока */
+}
+
+/* Каталог */
+.container-catalog {
+    width: 1050px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Адаптивные колонки */
+    gap: 20px;
+    padding: 20px;
+    border: none;
+}
+
+/* Товар */
+.catalog-page-item {
+    flex: 1 1 245px;
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+    transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.catalog-page-item:hover {
+    transform: translateY(-5px); /* Лёгкое поднятие при наведении */
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* Увеличенная тень */
+}
+
+.catalog-card {
+    border: 0.4px solid rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    overflow: hidden;
+    background-color: #fff;
+    font-family: 'Lato', sans-serif;;
+    position: relative;
+}
   
+.card-image {
+    width: 100%;
+    height: 250px;
+    background-color: #eae0e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; /* Обрезаем всё, что выходит за пределы */
+}
+  
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.buttonFavourite {
+    width: 45px;
+    height: 45px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(255, 255, 255, 0.75);
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.1s;
+}
+
+.favorite-icon svg {
+    transition: fill 0.3s ease, transform 0.3s ease;
+    fill: none; /* Исходная заливка без цвета */
+    stroke: rgba(0, 0, 0, 0.6); /* Обводка серого цвета */
+}
+
+.favorite-icon.active svg {
+    fill: red;  /* Заливка красным цветом */
+    stroke: red;
+}
+
+
+.card-content {
+    padding: 18px;
+    word-wrap: break-word;
+    white-space: normal;
+}
+  
+.card-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+    color: #000;
+    display: -webkit-box;
+    -webkit-line-clamp: 1; /* Ограничение строк */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Многоточие */
+    transition: -webkit-line-clamp 1s ease;
+}
+
+.catalog-card:hover .card-title {
+    -webkit-line-clamp: unset; /* Убираем ограничение на количество строк */
+}
 
   
+.card-seller {
+    font-size: 14px;
+    color: #666;
+    margin: 5px 0;
+}
+  
+.card-price {
+    font-size: 18px;
+    color: #000;
+    margin: 10px 0;
+}
+  
+.add-to-cart {
+    width: 100%;
+    height: 40px;
+    padding: 10px;
+    background-color: rgba(238, 127, 126, 1);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+  
+.add-to-cart:hover {
+    background-color: rgba(225, 235, 117, 1);
+}
+
+/* Контакты */
+.container-contact {
+    display: flex; 
+    padding-left: 30px;
+    padding-right: 30px;
+    justify-content: space-between; 
+    background-color: rgba(169, 218, 248, 1);
+    width: 990px;
+    height: 10.3vw;
+    margin: 0 auto;
+    margin-top: 20px;
+    border-radius: 20px 20px 0 0;
+}
+
+.container-contact h3{
+    font-size: 18px;
+    font-weight: 500;
+    color: white;
+    font-weight: bold;
+
+    margin-top: 3.65vw;
+}
+
+.container-contact a{
+    font-size: 14px;
+    font-weight: 400;
+    color: white;
+
+    text-decoration: none;
+}
+
+.container-contact p{
+    font-size: 14px;
+    font-weight: 400;
+    color: white;
+}

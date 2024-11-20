@@ -19,11 +19,12 @@ public class AuthorController {
 
     // возвращает авторскую страницу
     @GetMapping("/author/{email}")
-    public String authorPage(@PathVariable String email, Model model) {
-        User user = userService.findByEmail(email).get();
-        model.addAttribute("currentUser", user);
-        model.addAttribute("image", user.getImage());
-        model.addAttribute("listOfGoods", user.getProducts());
+    public String authorPage(@PathVariable String email, Model model, @AuthenticationPrincipal UserDetails userDetails) {
+        User author = userService.findByEmail(email).get();
+        model.addAttribute("author", author);
+        model.addAttribute("image", author.getImage());
+        model.addAttribute("listOfGoods", author.getProducts());
+        model.addAttribute("currentUser", userDetails.getUser());
         return "authorPage";
     }
 }
