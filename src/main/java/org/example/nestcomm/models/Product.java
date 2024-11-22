@@ -30,8 +30,8 @@ public class Product {
     private String author;
     @Column(name = "category")
     private String category;
-//    @Column(name = "balance")
-//    private int balance;
+    @Column(name = "balance")
+    private Integer balance;
 
     // CascadeType.ALL - удаляет все фотографии связанные с товаром при удалении товара
     // и добавляет все фотографии при добавления товара, т.е отдельно к репозиторию фотографий обращаться не нужно
@@ -56,6 +56,6 @@ public class Product {
         this.city = dto.getCity();
         if(dto.getAuthor() != null) this.author = dto.getAuthor();
         this.category = dto.getCategory();
-//        this.balance = dto.getBalance();
+        this.balance = dto.getBalance();
     }
 }

@@ -12,6 +12,7 @@
 Email: ${author.getEmail()!} <br><br>
 Номер телефона: ${author.getPhoneNumber()!} <br><br>
 Дата регистрации на сайте: ${author.getRegistrationTime()!} <br><br>
+Дата последней активности на сайте: ${author.getLastLogin()!} <br> <br>
 Описание рода занятий:  <br><br>
 
 <#if currentUser.isRegistered() && currentUser.getID() == author.getID()>

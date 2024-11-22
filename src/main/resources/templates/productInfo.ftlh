@@ -14,8 +14,9 @@
   Описание объявления: ${product.getDescription()!} <br><br>
   Категория товара: ${product.getCategory()!} <br><br>
   Цена: ${product.getPrice()!} <br><br>
+  Осталось единиц: ${product.getBalance()!}<br><br>
   Город: ${product.getCity()!} <br><br>
-User ID: ${authorId!} <br><br>
+  User ID: ${authorId!} <br><br>
 <p> <a href = "/author/${product.getUser().getEmail()!}">  ${product.getUser().getEmail()!} </a> </p> <br><br>
   <#if currentUser.isRegistered() && currentUser.getID() == product.getUser().getID()>
 <form action = "/product/delete/${product.getID()}" method="post">

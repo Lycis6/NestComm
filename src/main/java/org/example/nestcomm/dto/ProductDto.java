@@ -21,6 +21,6 @@ public class ProductDto {
     @NotNull
     @Size(max = 20)
     private String category;
-//    @NotNull
-//    private int balance;
+    @NotNull
+    private Integer balance;
 }

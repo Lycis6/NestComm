@@ -46,6 +46,8 @@ public class User  {
 
     @Column(name = "createdAt", columnDefinition = "DATETIME")
     private LocalDateTime createdAt;
+    @Column(name = "lastLogin", columnDefinition = "DATETIME")
+    private LocalDateTime lastLogin;
     @Column(name = "role")
     private String roles;
 

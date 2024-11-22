@@ -66,11 +66,9 @@ public class UserController {
 
     @PreAuthorize("hasAuthority('USER')")
     @GetMapping("/user/became/author")
-    public String becameAuthor(Model model, @AuthenticationPrincipal UserDetails userDetails) {
+    public String becameAuthor(@AuthenticationPrincipal UserDetails userDetails) {
         userService.becameAuthor(userDetails.getUser());
-        model.addAttribute("currentUser", userDetails.getUser());
-        model.addAttribute("image", userDetails.getUser().getImage());
-        return "authorPage";
+        return "redirect:/home";
     }
 
     @GetMapping("user/passwordChange")
@@ -95,7 +93,4 @@ public class UserController {
         return "redirect:/home";
 
     }
-
-
-
 }

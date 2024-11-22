@@ -36,16 +36,16 @@ public class SecurityConfig {
                         .requestMatchers("user/registration/new", "product", "/image/{id}",
                                 "product/{id}", "/product/find", "errors").permitAll()
                         .requestMatchers("/home","/user/update","user/passwordChange","user/passwordChange/new",
-                                "passwordChange").authenticated()
+                                "passwordChange","login-success").authenticated()
                         .requestMatchers("/product/delete/{id}","/product/create/new",
                                 "/user/became/author", "/author/{email}", "product/create", "productCreate").authenticated()
                         .requestMatchers("admin","/admin/ban/{email}", "/admin/unban/{email}",
-                                "admin").hasAuthority("ADMIN")
+                                "admin/user/{email}").hasAuthority("ADMIN")
                         .requestMatchers( "/static/**").permitAll()
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .defaultSuccessUrl("/home",true)
+                        .defaultSuccessUrl("/login-success",true)
                         .failureUrl("/login-error")
                         .permitAll()
                 )
