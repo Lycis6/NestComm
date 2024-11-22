@@ -69,7 +69,7 @@ body {
 }
 
 .auth:hover {
-    background-color: rgb(227, 228, 228); /* Темно-зеленый фон при наведении */
+    background-color: rgb(227, 228, 228);
 }
 
 .lk {
@@ -476,25 +476,68 @@ input:checked + .slider:before {
     fill: none; /* Убираем заливку */
 }
 
-/* Кнопки правые */
-.buttonsRight {
-    margin-left: auto; /* Добавлено для сдвига вправо */
+
+/* Строка поиска */
+.InputContainer {
+    width: 660px;
+    height: 44px;
     display: flex;
-    align-items: center;
-    gap: 20px;
+    align-items: center; /* Центрируем по вертикали все элементы внутри контейнера */
+    justify-content: space-between; /* Изменено для размещения элементов по краям */
+    background-color: rgba(244, 246, 248, 1);
+    border-radius: 11px;
+    border: none;
+    overflow: hidden;
+    cursor: pointer;
+    padding: 0 15px;
 }
 
+.input {
+    display: flex;
+    align-items: center;
+    background-color: rgba(244, 246, 248, 1);
+    font-family: 'Rubik', sans-serif;
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    caret-color: #a8a8a8;
+    color: #505050;
+}
+
+.labelforsearch, .micButton, .clearButton {
+    display: flex;  /* Включаем Flexbox для каждой кнопки */
+    justify-content: center;  /* Центрируем иконки по горизонтали */
+    align-items: center;      /* Центрируем иконки по вертикали */
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.searchIcon, .micIcon {
+    width: 20px;  /* Задаем размеры иконок */
+    height: 20px; /* Задаем размеры иконок */
+}
+
+.clearButton {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+/* Кнопки после поиска */
 .buttonRight {
     background-color: rgba(244, 246, 248, 1);
     color: rgb(0, 0, 0);
     padding: 13px 13px;
     border: none;
     border-radius: 15px;
-    cursor: pointer;
+    cursor: pointer; /* Курсор в виде указателя */
     transition: background-color 0.3s;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: flex;  /* Включаем Flexbox */
+    justify-content: center;  /* Центрируем по горизонтали */
+    align-items: center;  /* Центрируем по вертикали */
 }
 
 .buttonRight:hover {
@@ -505,231 +548,284 @@ input:checked + .slider:before {
     margin: 0; /* Убираем отступы */
 }
 
-.container-3 {
-    display: grid;
-    grid-template-columns: 1fr 1fr 2fr; /* Три колонки одинаковой ширины */
-    grid-template-rows: auto auto; /* Две строки */
-    gap: 12px; /* Расстояние между фреймами */
-    width: 1050px; /* Ширина всей сетки */
-    margin: 0 auto; /* Центрирование сетки */
-}
-
-/* Общие стили для фреймов */
-.frame {
-    position: relative; /* Устанавливаем относительное позиционирование для фреймов */
-    margin-top: 10px;
-    border-radius: 19px;
-    padding: 20px;
-    color: rgb(255, 255, 255);
-    font-size: 20px;
-    font-weight: 600;
-    display: flex;
-    align-items: flex-end;
-    text-decoration: none;
-    justify-content: space-between;
-    transition: transform 0.1s;
-}
-
-/* Эффекты при наведении */
-.frame.orange:hover, 
-.frame.green:hover, 
-.frame.blue:hover {
-    cursor: pointer;
-    transform: scale(1.02);
-}
-
-/* Кнопка в правом верхнем углу */
-.white-button {
-    width: 45px;
-    height: 45px;
-    position: absolute;
-    top: 21px;
-    right: 21px;
-    background-color: white;
-    border: none;
-    border-radius: 50%;
-    padding: 6px;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: transform 0.1s;
-}
-
-.white-button:hover {
-    transform: scale(1.1); /* Увеличиваем кнопку на 20% при наведении */
-}
-
-
-/* Стили для SVG-иконки */
-.white-button svg {
-    width: 24px;
-    height: 24px;
-    stroke: #000; /* Цвет иконки */
-}
-
-.text-frame {
-    padding: 6px;
-    max-width: 160px;
-    word-wrap: break-word;
-    white-space: normal;
-}
-
-.text-frame-green {
-    padding: 6px;
-    color: rgba(238, 127, 126, 1);
-    max-width: 140px;
-    word-wrap: break-word;
-    white-space: normal;
-}
-
-/* Оранжевый блок */
-.frame.orange {
-    margin-top: 25px;
-    width: 610px;
-    height: 140px;
-    background-color: rgb(246, 185, 141, 0.8);
-    grid-column: span 2;
-    grid-row: 1;
-}
-
-/* Голубой блок */
-.frame.blue {
-    height: 302px;
-    margin-right: 5px;
-    background-color: rgba(169, 218, 248, 1);
-    grid-column: 1;
-    grid-row: 2;
-}
-
-.frame.blue .zigzag {
-    position: absolute; /* Позиционируем SVG внутри контейнера */
-    top: 0;
-    left: 0;
-    width: 100%; /* Подгоняем SVG под ширину контейнера */
-    height: 100%; /* Подгоняем SVG под высоту контейнера */
-}
-
-/* Зеленый блок */
-.frame.green {
-    height: 302px;
-    margin-left: 5px;
-    background-color:rgba(225, 235, 117, 1);
-    grid-column: 2;
-    grid-row: 2;
-}
-
-.frame.image {
-    margin-top: 25px;
-    margin-left: 10px;
-    background-color: white;
-    grid-column: 3;
-    grid-row: span 2;
-    padding: 0;
-}
-
-.frame.image img {
-    width: 100%;
-    height: 100%;
-    border-radius: 22px;
-    object-fit: cover;
-}
-
-.container-4 {
-    background: #fff;
-    border-radius: 20px;
-    box-shadow: 0 14px 28px rgba(0, 0, 0, .25), 0 10px 10px rgba(0, 0, 0, .22);
-    position: relative;
-    overflow: hidden;
-    width: 768px;
-    max-width: 100%;
-    min-height: 480px;
-}
-
-.content {
-    width: 80%;
-    margin: 0 0 0 80px;
-}
-
-.container-4 h2 {
-    font-size: 18px;
-}
-
-.container-4 p, ul {
-    font-size: 16px;
-}
-
-.container-4 ul {
-    list-style: disc;
-    margin-left: 10px;
-}
-
-/* Текст О нас*/
-.container-text {
-    display: block;
-    background-color: rgb(255, 255, 255); /* Цвет фона меню */
-    /* padding: 10px 20px; Отступы для меню */
-    width: 1050px; /* Фиксированная ширина меню */
-    /* height: 80px; */
-    margin: 0 auto; /* Центрируем меню на странице */
-    margin-top: 30px;
-    gap: 12px;
-}
-
-.container-reason {
+/* Путь */
+.path {
     display: flex;
     align-items: center;
-    background-color: rgb(255, 255, 255); /* Цвет фона меню */
-    width: 1100px; /* Фиксированная ширина меню */
-    height: 170px;
-    gap: 12px; /* Расстояние между элементами внутри */
-    margin: 0 auto; /* Центрирование блока */
+    width: 1050px;
+    margin: 0 auto;
+    margin-bottom: 17px;
 }
 
-.reason {
-    width: 670px;
-    display: flex; /* Flexbox для вертикального выравнивания */
-    flex-direction: column; /* Направление содержимого: колонка */
-    align-items: center; /* Выравнивание по горизонтали */
-    justify-content: center; /* Центрирование по вертикали */
-    gap: 10px; /* Отступ между SVG и текстом */
+.breadcrumbs {
+    margin: 12px 0 17px 0;
+    padding: 0px;
 }
 
-.reason svg {
-    margin-bottom: 5px;
+.breadcrumbs li + li::before {
+    content: "/";
+    padding: 0 2px 4px 0;
+    font-size: 14px;
 }
 
-.text-reason {
-    margin-left: 10px;
-    margin-right: 10px;
-    max-width: 510px;
-    word-wrap: break-word;
-    white-space: normal;
+.breadcrumbs li {
     text-align: center;
+    display: inline-block;
+    font-family: 'Rubik', sans-serif;
+    font-size: 14px;
+    color: #505050;
 }
 
-.container-reason {
-    display: flex;
-    align-items: center;
-    background-color: rgb(255, 255, 255); /* Цвет фона меню */
-    width: 1050px; /* Фиксированная ширина меню */
-    height: 170px;
-    gap: 12px; /* Расстояние между элементами внутри */
-    margin: 0 auto; /* Центрирование блока */
+.breadcrumbs a {
+    text-decoration: none;
+    color: #505050;
+}
+
+.breadcrumbs a:hover,
+.breadcrumbs a:active {
+    color: #0f0f0f; /* Сохраняет тот же цвет */
+    text-decoration: none; /* Убирает подчеркивание */
 }
 
 /* Каталог */
-.container-catalog {
+.catalog-page {
+    display: flex;
     width: 1050px;
     margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Адаптивные колонки */
-    gap: 20px;
-    padding: 20px;
-    border: none;
 }
 
-/* Товар */
+/* Фильтры */
+.catalog-sidebar {
+    height: 648px;
+    width: 232px;
+    padding: 15px;
+    margin-right: 20px;
+    border-radius: 15px;
+    border: 0.4px solid rgba(0, 0, 0, 0.1);
+}
+
+.catalog-sidebar h3 {
+    margin-top:0px;
+}
+
+.filter-section {
+    padding: 10px;
+    margin: 15px 0;
+}
+
+.filter-section h4 {
+    margin: 0 0 10px;
+    font-size: 17px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Стили для контейнера фильтра категорий */
+.filter-category {
+    font-family: 'Rubik', sans-serif;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.category {
+    padding: 10px 20px;
+    margin: 5px 0;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: background-color 0.3s, color 0.3s;
+    font-size: 14px;
+}
+
+.category.selected {
+    background-color: #333;
+    color: white;
+}
+
+.category:hover {
+    background-color: #ddd;
+}
+
+.category-list {
+    list-style: none;
+    padding: 0;
+}
+
+.category-list li {
+    margin-bottom: 10px;
+}
+
+.category-list a {
+    text-decoration: none;
+    color: #333;
+}
+
+.catalog-content {
+    width: 80%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+/* Стили для контейнера фильтра цен */
+.filter-price {
+    display: flex;
+    align-items: center;
+    gap: 21px;
+}
+
+.input-price {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.ds-input {
+    width: 50px;
+    padding: 10px;
+    font-size: 14px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    text-align: right;
+}
+
+.ds-input:focus {
+    border-color:  #999999;
+    outline: none;
+}
+
+.ds-input.error {
+    border-color: red;
+}
+
+/* Слайдер */
+.input-ranges[type='range'] {
+    margin-top: 10px;
+    width: 191px;
+    height: 30px;
+    overflow: hidden;
+    outline: none;
+}
+
+.input-ranges[type='range'],
+.input-ranges[type='range']::-webkit-slider-runnable-track,
+.input-ranges[type='range']::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    background: none;
+}
+
+.input-ranges[type='range']::-webkit-slider-runnable-track {
+    height: 1.6px;  /* Увеличиваем высоту для видимости */
+    border-radius: 2px;
+    background: #333;
+}
+
+.input-ranges[type='range']:nth-child(2)::-webkit-slider-runnable-track {
+    background: none;
+}
+
+.input-ranges[type='range']::-webkit-slider-thumb {
+    position: relative;
+    height: 15px;
+    width: 15px;
+    margin-top: -7px;
+    background: rgba(238, 127, 126, 1);
+    border: 1px solid var(--color-headline);
+    border-radius: 25px;
+    cursor: pointer;
+    z-index: 1;
+    transition: .5s;
+    -webkit-transition: .5s;
+    -moz-transition: .5s;
+    -ms-transition: .5s;
+    -o-transition: .5s;
+}
+
+.input-ranges[type='range']::-webkit-slider-thumb:hover {
+    background: rgb(246, 185, 141, 1);
+    border: 1px solid var(--color-primary);
+    outline: .5px solid var(--color-primary);
+}
+
+.input-ranges[type='range']::-webkit-slider-thumb:active {
+    cursor: grabbing;
+}
+
+.input-ranges[type='range']:nth-child(1)::-webkit-slider-thumb {
+    z-index: 2;
+}
+
+.rangeslider {
+    font-family: sans-serif;
+    font-size: 14px;
+    position: relative;
+    height: 20px;
+    display: inline-block;
+    margin-top: -5px;
+}
+
+.rangeslider input {
+    position: absolute;
+}
+
+.rangeslider span {
+    position: absolute;
+    margin-top: 20px;
+    left: 0;
+}
+
+.rangeslider .right {
+    position: relative;
+    float: right;
+    margin-right: -5px;
+}
+
+/* Кнопки фильтра */
+.filter-buttons {
+    display: flex;
+    flex-direction: column;  /* Выставляем кнопки вертикально */
+    gap: 15px;  /* Расстояние между кнопками */
+    margin-top: 45px;
+}
+
+.filter-buttons button {
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border 0.3s;
+    width: 80%;  /* Кнопки растягиваются на всю ширину контейнера */
+    margin: 0 auto;
+}
+
+.filter-buttons .btn-apply {
+    border: 1px solid #333;
+    background-color: #333;
+    color: rgb(255, 255, 255);
+}
+
+.filter-buttons .btn-apply:hover {
+    background-color: rgba(225, 235, 117, 1);;
+    border: 1px solid rgba(225, 235, 117, 1);;
+    color: #333;
+}
+
+.filter-buttons .btn-reset {
+    background-color: #fff;
+    border: 1px solid #333;
+    color: #333;
+}
+
+.filter-buttons .btn-reset:hover {
+    background-color: #ccc;
+    border: 1px solid #ccc;
+    color: rgb(255, 255, 255);
+}
+
+
 /* Товар */
 .catalog-card {
     border: 0.4px solid rgba(0, 0, 0, 0.1);
@@ -848,6 +944,7 @@ input:checked + .slider:before {
     background-color: rgba(225, 235, 117, 1);
 }
 
+
 /* Контакты */
 .container-contact {
     display: flex; 
@@ -858,7 +955,7 @@ input:checked + .slider:before {
     width: 990px;
     height: 10.3vw;
     margin: 0 auto;
-    margin-top: 20px;
+    margin-top: 40px;
     border-radius: 20px 20px 0 0;
 }
 

@@ -38,6 +38,7 @@ public class ProductController {
             model.addAttribute("currentUser", emptyUser);
         }
         model.addAttribute("listOfGoods", productService.getList());
+        model.addAttribute("Name", "Ivan");
         return "product";
     }
 

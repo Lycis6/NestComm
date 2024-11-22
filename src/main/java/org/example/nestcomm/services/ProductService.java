@@ -30,7 +30,7 @@ public class ProductService {
 
     public List<Product> getListByName(String name) {
         if(name != null) {
-            List<Product> products = productRepository.findByName(name);
+            List<Product> products = productRepository.findByNameContaining(name);
             if(products.isEmpty()) return productRepository.findAll();
             return products;
         }
