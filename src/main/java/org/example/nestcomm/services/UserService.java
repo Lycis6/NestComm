@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 //import org.example.nestcomm.models.Role;
 import org.example.nestcomm.dto.UserDto;
+import org.example.nestcomm.models.Basket;
 import org.example.nestcomm.models.Image;
 import org.example.nestcomm.models.User;
 //import org.example.nestcomm.models.enums.RoleEnum;
@@ -51,6 +52,9 @@ public class UserService implements UserDetailsService {
 
     public boolean createUser(UserDto userDto) {
         User user = new User();
+        Basket basket = new Basket();
+        basket.setTotalPrice(0);
+        basket.setOrderedProductIds("");
         user.transferDtoToModel(userDto);
         String email = user.getEmail();
         if(userRepository.findByEmail(email).isPresent()) {
@@ -61,6 +65,8 @@ public class UserService implements UserDetailsService {
         user.setActive(true);
         user.setRoles("USER");
         log.info("User created: {}", email);
+        user.setBasket(basket);
+        log.info("Basked added to user: {}", email);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         return true;

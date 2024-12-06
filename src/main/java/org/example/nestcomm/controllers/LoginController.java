@@ -44,10 +44,14 @@ class LoginController {
     }
 
     @GetMapping("/login-error")
-    String errorLogin(Model model) {
+    String errorLogin(@AuthenticationPrincipal UserDetails userDetails, Model model) {
         String error = "login-error";
+        User user = new User();
+        user.setEmail(null);
+        user.setPassword(null);
+        model.addAttribute("currentUser", user);
         model.addAttribute("error", error);
-        return "login";
+        return "/login";
     }
 
 

@@ -44,6 +44,10 @@ public class User  {
     @JoinColumn(name = "image_id")
     private Image image;
 
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "basket_id")
+    private Basket basket;
+
     @Column(name = "createdAt", columnDefinition = "DATETIME")
     private LocalDateTime createdAt;
     @Column(name = "lastLogin", columnDefinition = "DATETIME")

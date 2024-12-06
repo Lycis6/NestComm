@@ -34,11 +34,13 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("user/registration/new", "product", "/image/{id}",
-                                "product/{id}", "/product/find", "errors").permitAll()
+                                "product/{id}", "/product/findByName", "errors","/product/findByCategoryAndPrice").permitAll()
                         .requestMatchers("/home","/user/update","user/passwordChange","user/passwordChange/new",
                                 "passwordChange","login-success").authenticated()
                         .requestMatchers("/product/delete/{id}","/product/create/new",
                                 "/user/became/author", "/author/{email}", "product/create", "productCreate").authenticated()
+                        .requestMatchers("/basket","basket/add/{productId}","basket/delete/{productId}",
+                                "basket/setAmount/{productId}").authenticated()
                         .requestMatchers("admin","/admin/ban/{email}", "/admin/unban/{email}",
                                 "admin/user/{email}").hasAuthority("ADMIN")
                         .requestMatchers( "/static/**").permitAll()

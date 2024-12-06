@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
 
 @Controller
@@ -34,7 +33,7 @@ public class UserController {
     @PostMapping("/user/registration/new")
     public String registrationUser(@Validated UserDto userDto, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            log.info("Bad validation");
+            log.info("Bad validation in registration");
             model.addAttribute("errors", bindingResult.getFieldError().getDefaultMessage());
             return "login";
         }
@@ -52,16 +51,19 @@ public class UserController {
     }
 
     @PostMapping("/user/update")
-    public void updateUser(@Validated UserDto userDto, @AuthenticationPrincipal UserDetails userDetails,
+    public String updateUser(@Validated UserDto userDto, @AuthenticationPrincipal UserDetails userDetails,
                            @RequestParam("file") MultipartFile file, BindingResult bindingResult, Model model) throws IOException
     {
         if (bindingResult.hasErrors()) {
-            log.info("Bad validation");
+            log.info("Bad validation in update");
             model.addAttribute("errors", bindingResult.getFieldError().getDefaultMessage());
-            return;
+            // TODO придумать как выводить ошибки
+            return "redirect:/home";
         }
         User userCurrent = userDetails.getUser();
         userService.updateUser(userCurrent, userDto, file);
+        model.addAttribute("currentUser", userDetails.getUser());
+        return "home";
     }
 
     @PreAuthorize("hasAuthority('USER')")
@@ -71,23 +73,20 @@ public class UserController {
         return "redirect:/home";
     }
 
-    @GetMapping("user/passwordChange")
-    public String changePassword() {
-        return "passwordChange";
-    }
-
     @PostMapping("/user/passwordChange/new")
     public String changePassword(@Validated UserDto userDto, @RequestParam String passwordCheck , BindingResult bindingResult,
                                  Model model, @AuthenticationPrincipal UserDetails userDetails) {
         if (bindingResult.hasErrors()) {
-            log.info("Bad validation");
+            log.info("Bad validation in passwordChange");
             model.addAttribute("errors", bindingResult.getFieldError().getDefaultMessage());
-            return "passwordChange";
+            // TODO придумать как выводить ошибки
+            return "redirect:/home";
         }
         if(!userDto.getPassword().equals(passwordCheck)){
             log.info("Password does not match");
             model.addAttribute("errors", "Password does not match");
-            return "passwordChange";
+            // TODO придумать как выводить ошибки
+            return "redirect:/home";
         }
         userService.changePassword(userDetails.getUser(),userDto);
         return "redirect:/home";

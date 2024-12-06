@@ -124,7 +124,7 @@
   </form>
 
     <!-- СТРОКА ПОИСКА -->
-    <form action="/product/find" method="get" class="InputContainer">
+    <form action="/product/findByName" method="get" class="InputContainer">
         <button type="submit" class="labelforsearch" for="input">
             <svg class="searchIcon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" role="img" aria-labelledby="search">
                 <path stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" d="M7.667 12.667A5.333 5.333 0 107.667 2a5.333 5.333 0 000 10.667zM14.334 14l-2.9-2.9"></path>
@@ -170,8 +170,8 @@
 
 <!-- Каталог -->
 <div class="catalog-page">
-
     <!-- Фильтр -->
+    <form action="/product/findByCategoryAndPrice" method="get" >
     <aside class="catalog-sidebar">
         <div class="filters" style="padding: 10px 0px">
             <h3>Фильтр</h3>
@@ -181,33 +181,39 @@
                 <h4>Категории</h4>
                 <ul class="filter-category">
                     <li>
-                        <div class="category" onclick="selectCategory(this)" data-category="Одежда и аксессуары">
-                            Одежда и аксессуары
+                        <div class="category" onclick="selectCategory(this)" data-category="Одежда">
+                            Одежда
+                            <input type="radio" name = "category" value="Одежда">
                         </div>
                     </li>
                     <li>
                         <div class="category" onclick="selectCategory(this)" data-category="Украшения">
                             Украшения
+                            <input type="radio" name = "category" value="Украшения">
                         </div>
                     </li>
                     <li>
                         <div class="category" onclick="selectCategory(this)" data-category="Дом и интерьер">
                             Дом и интерьер
+                            <input type="radio" name = "category" value="Дом и интерьер">
                         </div>
                     </li>
                     <li>
-                        <div class="category" onclick="selectCategory(this)" data-category="Подарки">
-                            Подарки
+                        <div class="category" onclick="selectCategory(this)" data-category="Электроника">
+                            Электроника
+                            <input type="radio" name = "category" value="Электроника">
                         </div>
                     </li>
                     <li>
-                        <div class="category" onclick="selectCategory(this)" data-category="Для детей">
-                            Для детей
+                        <div class="category" onclick="selectCategory(this)" data-category="Косметика">
+                            Косметика
+                            <input type="radio" name = "category" value="Косметика">
                         </div>
                     </li>
                     <li>
-                        <div class="category" onclick="selectCategory(this)" data-category="Для домашних животных">
-                            Для домашних животных
+                        <div class="category" onclick="selectCategory(this)" data-category="Еда и напитки">
+                            Еда и напитки
+                            <input type="radio" name = "category" value="Еда и напитки">
                         </div>
                     </li>
                 </ul>
@@ -215,6 +221,7 @@
             
     
             <!-- Фильтр по цене -->
+
             <div class="filter-section">
                 <h4>Цена</h4>
                 <div class="filter-price">
@@ -223,22 +230,25 @@
                     <div class="input-price__currency">₽</div>
                   </div>
                   <div class="input-price">
-                    <input class="ds-input" data-action="maxprice" data-limit="1100000.000000" type="text" name="maxprice">
+                    <input class="ds-input" data-action="maxprice" data-limit="200000.000000" type="text" name="maxprice">
                     <div class="input-price__currency">₽</div>
                   </div>
                 </div>
                 <div class="rangeslider">
-                    <input class="min input-ranges" name="range_1" type="range" min="0" max="1100000" value="28489">
-                    <input class="max input-ranges" name="range_1" type="range" min="0" max="1100000" value="647382">
+                    <input class="min input-ranges" name="min" type="range" min="0" max="200000.000000" value="0">
+                    <input class="max input-ranges" name="max" type="range" min="0" max="200000.000000" value="200000">
                 </div>
             </div>
+
+
             <div class="filter-buttons">
                 <button class="btn-apply" onclick="applyFilters()">Применить</button>
                 <button class="btn-reset" onclick="resetFilters()" style="margin-bottom: 3px;">Сбросить</button>
             </div>
+
         </div>
     </aside>
-
+    </form>
     <!-- Товары -->
     <main class="catalog-content">
       <#list listOfGoods as product>
@@ -261,7 +271,11 @@
                 <p class="card-title"><a href = "/product/${product.getID()}">${product.getName()}</a></p>
                 <p class="card-seller">${product.getUser().getName()!}</p>
                 <p class="card-price">${product.getPrice()!} Руб</p>
-                <button class="add-to-cart" onclick="addCart()">В корзину</button>
+                  <form action = "/basket/add/${product.getID()}" method="get">
+                      <input type="hidden" name="_csrf" value="${_csrf.token}">
+<#--                      <input type = "submit" value = "Добавить в корзину">-->
+                      <button class="add-to-cart" onclick="addCart()">В корзину</button>
+                  </form>
               </div>
             </div>
         </div>

@@ -1,5 +1,6 @@
 package org.example.nestcomm.controllers;
 
+import lombok.extern.log4j.Log4j2;
 import org.example.nestcomm.configurations.UserDetails;
 import org.example.nestcomm.dto.ProductDto;
 import org.example.nestcomm.models.Product;
@@ -19,7 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
-
+@Log4j2
 @Controller
 public class ProductController {
     private final ProductService productService;
@@ -59,7 +60,7 @@ public class ProductController {
     }
 
     // возвращает список продуктов по названию
-    @GetMapping("/product/find")
+    @GetMapping("/product/findByName")
     public String getProductByName(@RequestParam String name, Model model, @AuthenticationPrincipal UserDetails userDetails) {
         if(userDetails != null)
             model.addAttribute("currentUser", userDetails.getUser());
@@ -70,6 +71,26 @@ public class ProductController {
         model.addAttribute("listOfGoods", productService.getListByName(name));
         return "product";
     }
+
+    @GetMapping("/product/findByCategoryAndPrice")
+    public String getProductByCategoryAndPrice( Model model, @AuthenticationPrincipal UserDetails userDetails,
+                                        @RequestParam(value = "category", required = false) String category, @RequestParam("min") int min,
+                                        @RequestParam("max") int max) {
+        if(userDetails != null)
+            model.addAttribute("currentUser", userDetails.getUser());
+        else{ // продукт смотрит незарегистрированный пользователь
+            User emptyUser = new User();
+            model.addAttribute("currentUser", emptyUser);
+        }
+        model.addAttribute("listOfGoods", productService.getListByCategoryAndPrice(category, min, max));
+        log.info("Category: {}", category);
+        log.info("Controller works ");
+        log.info("range_1: {}", min);
+        log.info("range_2: {}", max);
+
+        return "product";
+    }
+
 
     @PreAuthorize("hasAnyAuthority('AUTHOR', 'ADMIN')")
     @PostMapping("/product/create/new")

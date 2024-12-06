@@ -8,13 +8,12 @@ import org.example.nestcomm.models.User;
 import org.example.nestcomm.repositories.ImageRepositoryInt;
 import org.example.nestcomm.repositories.ProductRepositoryInt;
 import org.springframework.beans.factory.annotation.Autowired;
+import java.util.Arrays;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Service
 @Slf4j
@@ -22,19 +21,46 @@ public class ProductService {
     private final ProductRepositoryInt productRepository;
 
     @Autowired
-    ProductService(ProductRepositoryInt productRepository, ImageRepositoryInt imageRepository) {
+    ProductService(ProductRepositoryInt productRepository) {
         this.productRepository = productRepository;
     }
 
     public List<Product> getList(){return productRepository.findAll();}
 
     public List<Product> getListByName(String name) {
+        List<Product> products;
         if(name != null) {
-            List<Product> products = productRepository.findByNameContaining(name);
+            products = productRepository.findByNameContaining(name);
             if(products.isEmpty()) return productRepository.findAll();
             return products;
         }
         return productRepository.findAll();
+    }
+
+    public List<Product> getListByCategoryAndPrice(String category,int min, int max) {
+        List<Product> products;
+        if(category != null) {
+            products = productRepository.findByCategoryAndPriceBetween(category, min, max);
+            if(products.isEmpty()) return productRepository.findAll();
+            return products;
+        }
+        products = productRepository.findByPriceBetween(min, max);
+        if(products.isEmpty()) return productRepository.findAll();
+        return products;
+    }
+
+    public List<Product> getListByIds(Long[] ids) {
+        List<Product> products = new ArrayList<>();
+        Optional<Product> optional;
+        for(Long id : ids) {
+            optional = productRepository.findProductByID(id);
+            if(optional.isPresent()) {
+                products.add(optional.get());
+            }
+            else
+                log.info("product with id {} not found", id);
+        }
+        return products;
     }
 
     public void saveProduct(ProductDto productDto, MultipartFile file1, MultipartFile file2, MultipartFile file3
@@ -78,6 +104,7 @@ public class ProductService {
         if(!Objects.equals(product.getUser().getID(), userDetails.getUser().getID())){
             log.info("User does not have permission to delete product: {}", id);
             // TODO написать exception
+            
             return;
         }
         productRepository.delete(product);

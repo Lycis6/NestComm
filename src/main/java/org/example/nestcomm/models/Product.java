@@ -34,7 +34,7 @@ public class Product {
     private Integer balance;
 
     // CascadeType.ALL - удаляет все фотографии связанные с товаром при удалении товара
-    // и добавляет все фотографии при добавления товара, т.е отдельно к репозиторию фотографий обращаться не нужно
+    // и добавляет все фотографии при добавлении товара, т.е отдельно к репозиторию фотографий обращаться не нужно
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "product")
     private List<Image> images = new ArrayList<>();
 
@@ -43,6 +43,10 @@ public class Product {
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
+
+    public boolean IsInStock(){
+        return balance > 0;
+    }
 
     public void addImage(Image image) {
         image.setProduct(this);
