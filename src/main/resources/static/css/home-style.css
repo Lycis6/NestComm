@@ -1,0 +1,563 @@
+body {
+    margin: 0;
+    font-family: 'Lato', sans-serif;
+    background-color: white;
+}
+
+/* Стиль полосы прокрутки */
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
+
+/* МЕНЮ */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: white;
+
+    padding: 10px 20px;
+    margin: 0px auto;
+
+    width: 1050px;
+}
+
+.navbar a {
+    text-decoration: none;
+}
+
+.logo {
+    font-size: 28px;
+    color: rgba(238, 127, 126, 1);
+    font-family: 'Rubik Bubbles', sans-serif;
+}
+
+.menu {
+    display: flex;
+    gap: 30px;
+}
+
+.menu a {
+    align-items: center;
+    text-decoration: none;
+
+    color: black;
+    font-family: 'Rubik', sans-serif;
+}
+
+
+/* Кнопка для перехода в ЛК */
+.lk {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: rgba(51, 51, 51, 1);
+    border: none;
+    border-radius: 15px;
+    padding: 11px 13px;
+
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+
+    transition: background-color 0.3s;
+}
+
+.lk:hover {
+    background-color: rgba(244, 246, 248, 1);
+    color: rgba(51, 51, 51, 1);
+}
+
+.container-2 {
+    display: flex;
+    align-items: center;
+    background-color: rgb(255, 255, 255); /* Цвет фона меню */
+    padding: 10px 20px; /* Отступы для меню */
+    width: 1050px; /* Фиксированная ширина меню */
+    margin: 0 auto; /* Центрируем меню на странице */
+    gap: 20px;
+}
+
+/* Кнопка каталог */
+.catalog {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 13px 25px;
+
+    border: none;
+    border-radius: 11px;
+    
+    background-color: rgba(238, 127, 126, 1);
+    color: rgb(255, 255, 255);
+    font-size: 16px;
+    cursor: pointer;
+    
+    transition: background-color 0.3s;
+}
+
+.catalog:hover {
+    background-color: rgb(246, 185, 141); /* Цвет фона при наведении */
+}
+
+.catalogIcon { 
+    margin-right: 8px; /* Отступ между иконкой и текстом */
+    fill: none; /* Убираем заливку */
+}
+
+/* Кнопки правые */
+.buttonsRight {
+    margin-left: auto; /* Добавлено для сдвига вправо */
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.buttonRight {
+    background-color: rgba(244, 246, 248, 1);
+    color: rgb(0, 0, 0);
+    padding: 13px 13px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttonRight:hover {
+    background-color: rgb(227, 228, 228); 
+}
+
+.size-6 {
+    margin: 0; /* Убираем отступы */
+}
+
+/* Путь */
+.path {
+    display: flex;
+    align-items: center;
+    width: 1050px;
+    margin: 0 auto;
+    margin-bottom: 17px;
+}
+
+.breadcrumbs {
+    margin: 12px 0 17px 0;
+    padding: 0px;
+}
+
+.breadcrumbs li + li::before {
+    content: "/";
+    padding: 0 2px 4px 0;
+    font-size: 14px;
+}
+
+.breadcrumbs li {
+    text-align: center;
+    display: inline-block;
+    font-family: 'Rubik', sans-serif;
+    font-size: 14px;
+    color: #505050;
+}
+
+.breadcrumbs a {
+    text-decoration: none;
+    color: #505050;
+}
+
+.breadcrumbs a:hover,
+.breadcrumbs a:active {
+    color: #0f0f0f; /* Сохраняет тот же цвет */
+    text-decoration: none; /* Убирает подчеркивание */
+}
+
+
+/* Информация */
+.container-info {
+    display: flex;
+    margin: 0 auto;
+
+    width: 1050px;
+    height: 484px;
+}
+
+/* Фильтры */
+.info-sidebar {
+    padding: 20px;
+    margin-right: 20px;
+
+    border-radius: 15px;
+    border: 0.4px solid rgba(0, 0, 0, 0.1);
+
+    height: auto;
+    width: 300px;
+}
+
+.personal-info {
+    padding: 10px 0;
+}
+
+.personal-info p {
+    margin-left: 15px;
+    margin-right: 15px;
+
+    font-size: 16px;
+    list-style: none;
+}
+
+.avatar-image {
+    display: block;  
+    overflow: hidden;
+
+    margin: 0 auto;
+    margin-top: 6px;
+
+    border-radius: 50%;
+
+    width: 155px;
+    height: 155px;
+}
+
+.avatar-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.info-name {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    margin: 10px 0;
+    padding: 0 20px;
+
+    word-wrap: break-word;
+    word-break: break-word;
+
+    height: 100%; 
+}
+
+.info-name p {
+    font-size: 17px;
+    font-weight: bold;
+
+    white-space: normal;
+}
+
+.info-contact {
+    padding: 0 10px;
+    margin-bottom: 40px;
+
+    word-wrap: break-word;
+    word-break: break-word;
+}
+
+.logout-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 auto;
+    padding: 10px 20px;
+
+    border: 1px solid #333;
+    border-radius: 11px;
+    
+    background-color: #fff;
+    color: #333;
+    font-size: 16px;
+    cursor: pointer;
+    
+    transition: background-color 0.3s;
+}
+
+.logout-btn:hover {
+    border: 1px solid #333;
+    background-color: #333;
+    color: rgb(255, 255, 255);
+}
+
+
+/* Настройки */
+.info-add {
+    padding: 20px;
+
+    border-radius: 15px;
+    border: 0.4px solid rgba(0, 0, 0, 0.1);
+
+    height: auto;
+    width: 647px;
+}
+
+.tabs {
+    display: flex;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.tab-btn {
+    background-color: transparent;
+
+    padding: 10px 20px;
+
+    border: none;
+    border-bottom: 2px solid transparent;
+
+    font-size: 16px;
+    font-family: 'Rubik', sans-serif;
+    color: #999;
+    cursor: pointer;
+}
+
+.tab-btn.active {
+    color: #0f0f0f;
+    border-bottom: 2px solid rgba(238, 127, 126, 1);
+}
+
+.tab-content {
+    padding: 20px;
+}
+
+.tab-panel {
+    display: none;
+}
+
+.tab-panel.active {
+    display: block;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+
+    margin: 0 auto;
+    
+    gap: 20px 40px;
+    max-width: 800px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 5px;
+    font-size: 16px;
+    font-family: 'Rubik', sans-serif;
+}
+
+input[type="text"], [type="password"] {
+    padding: 10px;
+    
+    border-radius: 5px;
+    border: 1px solid #ccc;
+
+    font-size: 14px;
+    color: #505050;
+}
+
+form input:focus {
+    border: 1px solid rgb(0, 0, 0);
+    outline: none;
+}
+
+.file-upload {
+    grid-column: span 2;
+    display: flex;
+    align-items: center;
+
+    padding: 19px 0;
+}
+
+.upload-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 13px;
+    
+    border-radius: 6px;
+    background-color: rgba(238, 127, 126, 1);
+
+    font-size: 15px;
+    color: #fff;
+    cursor: pointer;
+
+    transition:  transform 0.2s ease;
+}
+
+.upload-btn:active {
+    transform: scale(0.98);
+}
+
+#file-name {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+
+    font-size: 14px;
+    color: #505050;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.save-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 auto;
+    padding: 10px 20px;
+
+    border: 1px solid #333;
+    border-radius: 11px;
+    
+    background-color: #fff;
+    color: #333;
+    font-size: 16px;
+    cursor: pointer;
+    
+    transition: background-color 0.3s;
+}
+
+.save-btn:hover {
+    border: 1px solid #333;
+    background-color: #333;
+    color: rgb(255, 255, 255);
+}
+
+#password label {
+    font-size: 16px;
+    font-family: 'Rubik', sans-serif;
+}
+
+.password-info {
+    grid-column: 2 / 3;
+    grid-row: span 2;
+    word-wrap: break-word;
+    white-space: normal;
+    line-height: 1.5;
+
+    margin: auto;
+
+    font-size: 16px;
+}
+
+.update-password {
+    grid-column: span 2;
+    display: flex;
+    align-items: center;
+
+    padding: 17px 0;
+}
+
+.update-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 auto;
+    margin-top: 16px;
+    padding: 10px 20px;
+
+    border: 1px solid #333;
+    border-radius: 11px;
+    
+    background-color: #fff;
+    color: #333;
+    font-size: 16px;
+    cursor: pointer;
+    
+    transition: background-color 0.3s;
+}
+
+.update-btn:hover {
+    border: 1px solid #333;
+    background-color: #333;
+    color: rgb(255, 255, 255);
+}
+
+.author-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 auto;
+    padding: 12px 24px;
+
+    border: none;
+    border-radius: 11px;
+    background-color: rgba(238, 127, 126, 1);
+
+    font-size: 16px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.author-button:hover {
+    border: none;
+    background-color: rgb(246, 185, 141);
+}
+
+
+/* Контакты/подвал */
+.container-contact {
+    display: flex; 
+    justify-content: space-between;
+    padding-left: 30px;
+    padding-right: 30px;
+    margin: 0 auto;
+    margin-top: 40px;
+     
+    background-color: rgba(169, 218, 248, 1);
+    border-radius: 20px 20px 0 0;
+
+    width: 990px;
+    height: 10.3vw;
+}
+
+.container-contact h3{
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+
+    margin-top: 3.65vw;
+}
+
+.container-contact a{
+    font-size: 14px;
+    font-weight: 400;
+    color: white;
+    font-family: 'Rubik', sans-serif;
+
+    text-decoration: none;
+}
+
+.container-contact p{
+    font-size: 14px;
+    font-weight: 400;
+    color: white;
+    font-family: 'Rubik', sans-serif;
+}
