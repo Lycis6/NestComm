@@ -15,8 +15,8 @@
 
   <title>Личный кабинет</title>
   
-  <link href="../static/css/home-style.css" rel="stylesheet" />
-  <script src="../static/js/home-script.js" type="text/javascript"></script>
+  <link href="/static/css/home-style.css" rel="stylesheet" />
+  <script src="/static/js/home-script.js" type="text/javascript"></script>
 </head>
 <body>
 
@@ -83,8 +83,11 @@
     <aside class="info-sidebar">
         <div class="personal-info" style="padding: 10px 0px">
             <div class="avatar-image">
-<#--                <img src="../static/images/main.jpg">-->
-                 <img src="/image/${(image.getId())!"default text"}" height="60px" /> <br><br>
+                <#if image?? >
+                     <img src="/image/${(image.getId())!}" height="60px" /> <br><br>
+                 <#else>
+                     <img src="../static/images/main.jpg">
+                </#if>
             </div>
 
             <div class="info-name">
@@ -116,71 +119,78 @@
           <!-- Смена личной информации -->
           <div class="tab-panel active" id="info">
             <h3 style="cursor: default;">Изменить личные данные</h3>
-            <form action="/user/update" method="post" enctype="multipart/form-data" class="form-grid">
-                <div class="form-group">
-                    <label for="name">Имя</label>
-                    <input type="text" name="name" id="name" required />
-                </div>
-                <div class="form-group">
-                    <label for="surname">Фамилия</label>
-                    <input type="text" name="surname" id="surname" required />
-                </div>
-                <div class="form-group">
-                    <label for="email" style="margin-bottom: 6px;">Email</label>
-                    <input type="text" name="email" id="email" required />
-                </div>
-                <div class="form-group">
-                    <label for="phoneNumber">Номер телефона</label>
-                    <input type="text" name="phoneNumber" id="phoneNumber" required />
-                </div>
-                <div class="file-upload">
-                  <label for="file" id="upload-btn" class="upload-btn btn-primary" style="margin-right: 10px;">Выбрать изображение</label>
-                  <span id="file-name">Файл не выбран</span>
-                  <input type="file" name="file" id="file" accept="image/*" style="display: none;" onchange="updateFileName()" />
+            <form action="/user/update" method="post" class="form-grid" id="updateForm" enctype="multipart/form-data">
+              <div class="form-group">
+                <label for="name">Имя</label>
+                <input type="text" name="name" id="name" required />
+                <p id="nameError" class="error-message" style="font-size: 12px; color: red; display: none; position: absolute; top: 405px; left: 640px"></p>
               </div>
-
-                <input type="hidden" name="_csrf" value="${_csrf.token}">
+              <div class="form-group">
+                <label for="surname">Фамилия</label>
+                <input type="text" name="surname" id="surname" required />
+                <p id="surnameError" class="error-message" style="font-size: 12px; color: red; display: none; position: absolute; top: 405px; left: 963px"></p>
+              </div>
+              <div class="form-group">
+                <label for="email" style="margin-bottom: 6px;">Email</label>
+                <input type="text" name="email" id="email" required />
+                <p id="emailError" class="error-message" style="font-size: 12px; color: red; display: none; position: absolute; top: 487px; left: 640px"></p>
+              </div>
+              <div class="form-group">
+                <label for="phoneNumber">Номер телефона</label>
+                <input type="text" name="phoneNumber" id="phoneNumber" required />
+                <p id="phoneError" class="error-message" style="font-size: 12px; color: red; display: none; position: absolute; top: 487px; left: 963px"></p>
+              </div>
+              <div class="file-upload">
+                <label for="file" id="upload-btn" class="upload-btn btn-primary" style="margin-right: 10px;">Выбрать изображение</label>
+                <span id="file-name">Файл не выбран</span>
+                <input type="file" name="file" id="file" accept="image/*" style="display: none;" onchange="updateFileName()" />
+              </div>
+              <div class="save-info">
+                <input type="submit" value="Сохранить изменения" class="save-btn" onclick="submitForm(event)" />
+                <input type="hidden" name="_csrf" value="${_csrf.token}" />
+              </div>
             </form>
-            <div class="form-group" style="margin-top: 11px;">
-              <button type="submit" class="save-btn">Сохранить изменения</button>
-            </div>
-          </div>
+          </div>          
 
           <!-- Смена пароля -->
           <div class="tab-panel" id="password">
             <h3 style="cursor: default;">Изменить пароль</h3>
-            <form action="/user/passwordChange/new" method="post" class="form-grid">
-                <div class="form-group">
-                    <label for="password">Новый пароль</label>
-                    <input type="password" name="password" id="password" placeholder="Password" required 
-                        pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{4,20}$"
-                        title="Пароль должен содержать хотя бы одну заглавную букву, одну строчную и одну цифру" />
-                </div>
-                <p class="password-info" style="cursor: default;">Пароль должен содержать хотя бы одну заглавную и одну строчную букву, а также хотя бы одну цифру</p>
-                <div class="form-group">
-                    <label for="passwordCheck" style="margin-bottom: 6px;">Подтвердить пароля</label>
-                    <input type="password" name="passwordCheck" id="passwordCheck" placeholder="Confirm Password" required 
-                        pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{4,20}$"
-                        title="Пароль должен содержать хотя бы одну заглавную букву, одну строчную и одну цифру" />
-                </div>
-                <p style="font-size: 14px; grid-column: span 2;">${errors!}</p>
-                <div class="update-password">
-                  <input type="submit" value="Обновить пароль" class="update-btn" />
+            <form action="/user/passwordChange/new" method="post" class="form-grid" id="passwordForm">
+              <div class="form-group">
+                  <label for="passwordNew">Новый пароль</label>
+                  <div class="password-wrapper">
+                      <input type="password" name="password" id="passwordNew" placeholder="Password" required
+                          pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$" 
+                          title="Пароль должен содержать хотя бы одну заглавную букву, одну строчную и одну цифру" />
+                      <a href="#" class="password-control"></a>
+                  </div>
+              </div>
+              <p class="password-info" style="cursor: default;">Пароль должен содержать хотя бы одну заглавную и одну строчную букву, а также хотя бы одну цифру</p>
+              <div class="form-group" style="margin-bottom: 0px;">
+                  <label for="passwordCheck" style="margin-bottom: 6px;">Подтвердить пароль</label>
+                  <div class="password-wrapper">
+                      <input type="password" name="passwordCheck" id="passwordCheck" placeholder="Confirm Password" required 
+                          pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$" 
+                          title="Пароль должен содержать хотя бы одну заглавную букву, одну строчную и одну цифру" />
+                      <a href="#" class="password-control"></a>
+                  </div>
+              </div>
+              <p id="error-message" style="font-size: 12px; color: red; display: none; position: absolute; top: 490px;">Пароль не совпадает</p>
+              <div class="update-password" style="margin-top: 65px;">
+                  <input type="button" value="Обновить пароль" class="update-btn" onclick="checkPasswords()" />
                   <input type="hidden" name="_csrf" value="${_csrf.token}" />
-                </div>
+              </div>
             </form>
           </div>
 
           <!-- Дополнительные возможности -->
           <div class="tab-panel" id="opportunity">
-              <p style="cursor: default;">Заполните все личные данные для открытия новых возможностей.</p>
             <#if currentUser.isAuthor()>
             <p style="cursor: default;">Перейдите в личный кабинет продавца, чтобы управлять магазином и товарными предложениями.</p>
             <form action = "/author/${currentUser.getEmail()!}" method="get">
                 <input type="hidden" name="_csrf" value="${_csrf.token}">
                 <input type = "submit" class="author-button" value = "Авторская страница">
             </form>
-
             </#if>
 
             <#if currentUser.isApproved() && !currentUser.isAuthor()>

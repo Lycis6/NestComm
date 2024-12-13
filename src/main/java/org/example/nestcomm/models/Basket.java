@@ -24,7 +24,8 @@ public class Basket {
     @Column(name = "ordered_product_ids", columnDefinition = "text")
     private String orderedProductIds;
     @Column(name = "total_price")
-    private int totalPrice;
+    private Integer totalPrice;
+//    private int totalPrice;
 
     // Парсит строку с id на массив лонгов, удаляет дубликаты id из массива и считает их количество
     public Long[][] TransferStringToLong(){

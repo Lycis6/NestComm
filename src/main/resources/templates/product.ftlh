@@ -15,14 +15,14 @@
 
   <title>Каталог</title>
   
-  <link href="../static/css/product-style.css" rel="stylesheet" />
-  <script src="../static/js/product-script.js" type="text/javascript"></script>
+  <link href="/static/css/product-style.css" rel="stylesheet" />
+  <script src="/static/js/product-script.js" type="text/javascript"></script>
 </head>
 <body>
 
 <!-- Менюшка -->
 <nav class="navbar">
-  <a href="index.html" class="logo">ГНЕЗДО</a>
+  <a href="login" class="logo">ГНЕЗДО</a>
   <div class="menu">
     <a href="/login#faq">Вопросы и ответы</a>
     <a href="/login#about">О нас</a>

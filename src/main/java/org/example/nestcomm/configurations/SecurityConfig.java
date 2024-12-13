@@ -38,7 +38,7 @@ public class SecurityConfig {
                         .requestMatchers("/home","/user/update","user/passwordChange","user/passwordChange/new",
                                 "passwordChange","login-success").authenticated()
                         .requestMatchers("/product/delete/{id}","/product/create/new",
-                                "/user/became/author", "/author/{email}", "product/create", "productCreate").authenticated()
+                                "/user/became/author", "/author/{email}", "/author", "product/create", "productCreate").authenticated()
                         .requestMatchers("/basket","basket/add/{productId}","basket/delete/{productId}",
                                 "basket/setAmount/{productId}").authenticated()
                         .requestMatchers("admin","/admin/ban/{email}", "/admin/unban/{email}",

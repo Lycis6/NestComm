@@ -1,9 +1,12 @@
 package org.example.nestcomm.controllers;
 
 import lombok.extern.slf4j.Slf4j;
+import org.example.nestcomm.configurations.UserDetails;
+import org.example.nestcomm.models.User;
 import org.example.nestcomm.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,9 +31,11 @@ public class AdminController {
     }
 
     @GetMapping("/admin/user/{email}")
-    public String user(@PathVariable String email, Model model) {
-
-        model.addAttribute("user",userService.findByEmail(email).get());
+    public String user(@PathVariable String email, Model model, @AuthenticationPrincipal UserDetails userDetails) {
+        User user = userService.findByEmail(email).get();
+        model.addAttribute("currentUser", userDetails.getUser());
+        model.addAttribute("user",user);
+        model.addAttribute("image", user.getImage());
         return "userInfo";
     }
 
@@ -47,6 +52,4 @@ public class AdminController {
         userService.unbanUserWithEmail(email);
         return "admin";
     }
-
-
 }

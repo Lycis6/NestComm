@@ -386,7 +386,7 @@ form input:focus {
     display: flex;
     align-items: center;
 
-    padding: 19px 0;
+    padding: 15px 0;
 }
 
 .upload-btn {
@@ -420,6 +420,12 @@ form input:focus {
 
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.save-info {
+    grid-column: span 2;
+    display: flex;
+    align-items: center;
 }
 
 .save-btn {
@@ -560,4 +566,27 @@ form input:focus {
     font-weight: 400;
     color: white;
     font-family: 'Rubik', sans-serif;
+}
+
+.password-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.password-wrapper input {
+    width: 100%;
+    padding-right: 30px; /* Отступ для иконки глаза */
+}
+.password-control {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    background: url(https://snipp.ru/demo/495/view.svg) 0 0 no-repeat;
+    cursor: pointer;
+}
+.password-control.view {
+    background: url(https://snipp.ru/demo/495/no-view.svg) 0 0 no-repeat;
 }

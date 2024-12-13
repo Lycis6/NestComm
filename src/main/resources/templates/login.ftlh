@@ -15,8 +15,8 @@
 
   <title>ГНЕЗДО авторские товары ручной работы</title>
   
-  <link href="../static/css/login-style.css" rel="stylesheet" />
-  <script src="../static/js/login-script.js" type="text/javascript"></script>
+  <link href="/static/css/login-style.css" rel="stylesheet" />
+  <script src="/static/js/login-script.js" type="text/javascript"></script>
 </head>
 <body>
 

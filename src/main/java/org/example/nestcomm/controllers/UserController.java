@@ -62,15 +62,14 @@ public class UserController {
         }
         User userCurrent = userDetails.getUser();
         userService.updateUser(userCurrent, userDto, file);
-        model.addAttribute("currentUser", userDetails.getUser());
-        return "home";
+        return "redirect:/home";
     }
 
     @PreAuthorize("hasAuthority('USER')")
     @GetMapping("/user/became/author")
     public String becameAuthor(@AuthenticationPrincipal UserDetails userDetails) {
         userService.becameAuthor(userDetails.getUser());
-        return "redirect:/home";
+        return "redirect:/author";
     }
 
     @PostMapping("/user/passwordChange/new")
